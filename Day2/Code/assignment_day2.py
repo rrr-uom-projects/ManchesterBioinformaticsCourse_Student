@@ -1,5 +1,5 @@
 """
-Refer to Assignment_Day2.pdf for a guide
+Refer to Practical2_instructions.pdf for a guide
 
 Remember - comments are not optional
 """
