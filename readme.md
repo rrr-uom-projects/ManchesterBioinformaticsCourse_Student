@@ -26,6 +26,8 @@ I recommend you set up a virtual environment for this course, so that it doesn't
 
     `cd C:\Users\Andrew\code\ManchesterBioinformaticsCourse_Student && python3 -m pip install -r requirements.txt`
 
+    __IMPORTANT__ PyAudio will hopefully be installed automatically, but on windows it may fail. If this is the case, open requirements.txt and delete the line where PyAudio is mentioned, then re-run this step. If you plan to work on the extensions (in this case the one turining breathing traces into horrible sounds), fololow the instructions [here](https://stackoverflow.com/questions/52283840/i-cant-install-pyaudio-on-windows-how-to-solve-error-microsoft-visual-c-14) to install PyAudio separately.
+
 4. Run the test script to verify that everything is installed and ready to go:
     
     `python3 test_installation.py`
