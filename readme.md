@@ -3,9 +3,10 @@
 The materials in this repository are what you will need to complete the python lectures and assessments. 
 
 ## Installation
-We suggest you fork this repository to your own github, and commit your code there as you work through the course. At the end, send your github links in and we will mark the code from there.
+We suggest you clone this repository to your machine, and create a branch with yours and your partner's names as the branch name. Commit your code there as you work through the course, and make sure to sync with the main repo fairly often (git push).
 
-To fork a repo on github, have a look at the guidance [here](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo). It is quite simple, and can be done entirely in the github UI. Once you've forked this repo, you will clone it to your pc fo work on it. If your git is a bit rusty, there's a guide to cloning a repo in the forking decumentation.
+I made a short video to show how to create the branch if you're not familiar, you can watch it [here](https://youtu.be/72Sf03n5KZY)
+
 
 I recommend you set up a virtual environment for this course, so that it doesn't mess up any other python installation you've got. This is very simple to do by following the instructions [here](https://docs.python.org/3/tutorial/venv.html). a very condensed version:
 
@@ -33,6 +34,9 @@ I recommend you set up a virtual environment for this course, so that it doesn't
     `python3 test_installation.py`
 
     (Assuming you're still in the BioinformaticsCourse_Student directory)
+
+We will also go through this at the start of the monday practical, so don't worry!
+
 
 ## How the course will work
 
