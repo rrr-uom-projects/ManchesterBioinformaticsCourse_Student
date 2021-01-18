@@ -19,7 +19,7 @@ I recommend you set up a virtual environment for this course, so that it doesn't
 
     On linux, something like:
 
-    `cd /home/andrew/code && source bioinformatics-course/bin/activate`
+    `cd /home/andrew/code && source bioinformatics-course/bin/activate` 
 
     This activates the virtual environment. You will need to do it every time you want to work on your code.
 
