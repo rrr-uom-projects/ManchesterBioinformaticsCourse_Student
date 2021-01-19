@@ -6,6 +6,7 @@ Remember - comments are not optional
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.signal
+import os
 
 # Load values from 1st csv file into an array and look at the result
 firstFile = np.loadtxt('breathing_data/p01.csv', delimiter=',')
@@ -49,5 +50,20 @@ plt.plot(x_values_cropped[peaks_cropped[0]],
          convolved_cropped[peaks_cropped[0]], 
          marker='+', color='r', linewidth =0)
 plt.xlabel("Time")
-plt.ylabel("Arbitary breathing measurement")
-plt.savefig('breathing.png')
+plt.ylabel("Amplitude")
+plt.savefig('p01.png')
+
+###########LOOPING OVER ALL FILES######
+
+#For aFile in breathing files
+    #open aFile
+    #extract the data
+    #make a plot
+    #save the file
+    
+breathingFiles = os.listdir('breathing_data')
+breathingFiles.sort()
+print(breathingFiles)
+
+#for aFile in breathingFiles:
+        #with open() as file
