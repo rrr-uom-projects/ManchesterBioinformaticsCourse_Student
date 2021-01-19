@@ -32,15 +32,17 @@ convolved = np.convolve(window/window.sum(), p01_data[1], mode='same')
 #find peaks 
 peaks_p01 = find_peaks(convolved)
 print(peaks_p01)
+print(convolved[peaks_p01[0]])
 
-peaks = np.asarray(peaks_p01)
-print(peaks)
-print(type(peaks))
-print(xValues[peaks])
 
-#plot raw data and convoluted data
-#plt.plot(p01_data[0], p01_data[1], color='k')
-#plt.plot(xValues, convolved, color='r')
-#plt.scatter(xValues[peaks_p01], peaks, colour='g')
-#plt.show()
+#plot raw data and convolved data with peaks
+plt.plot(p01_data[0], p01_data[1], color='g', label="Raw Data")
+plt.plot(xValues, convolved, color='b', label="Convolved Data")
+plt.scatter(xValues[peaks_p01[0]], convolved[peaks_p01[0]], color='r', marker='o', label="Peaks")
+plt.xlabel("Time")
+plt.ylabel("Amplitude")
+plt.legend()
+plt.show()
+
+plt.savefig("P01_plot.png")
 
