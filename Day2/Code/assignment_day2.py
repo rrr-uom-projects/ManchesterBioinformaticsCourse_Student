@@ -14,9 +14,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from os import listdir
 from scipy.signal import find_peaks
+<<<<<<< HEAD
 from matplotlib import pyplot as plt
 import numpy as np
-import re
+
 from os import listdir
 from scipy.signal import find_peaks
 
@@ -43,16 +44,31 @@ for file_name in file_list:
 #delimiter is a character that seperate text strings, we are putting "," between the data point in each .cvs file ?
     ###p01 = np.loadtxt(r'/Users/keithgraham/PycharmProjects/ICT/ManchesterBioinformaticsCourse_Student/day2/code/breathing_data/ + file_name, delimiter","
     p01 = np.loadtxt(folder_input + file_name, delimiter=",")
+=======
+#open first csv
+#loads an individual csv and tells loadtxt that this file is delimited by ","
+file_list = listdir('/home/ali/git_repos/ICT_module/ManchesterBioinformaticsCourse_Student/Day2/Code/breathing_data/')
+
+for file_name in file_list:
+    p01 = np.loadtxt(r"/home/ali/git_repos/ICT_module/ManchesterBioinformaticsCourse_Student/Day2/Code/breathing_data/" + file_name, delimiter=",")
+    #p01 = np.core.defchararray.strip(p01, chars='\n')
+>>>>>>> 4d26dfd7cb40fec766f402430ea39c7596b77b58
     # Moving averages window function - ours
     N = int(p01[0,:].shape[0]/40) # Try changing the window width to see the effect on the filtered signal
     window = np.ones(N)
     convolved = np.convolve(window/window.sum(), p01[1,:], mode='same')# Note - divide by the sum of the window to 
     # maintain normalisation
+#
     fig = plt.figure(figsize=(16,9))
     peaks, _ = find_peaks(convolved, distance=50)
     plt.plot(p01[0,:], p01[1,:], linewidth=2)
     plt.plot(p01[0,:], convolved, color='black')
     plt.plot(peaks, convolved[peaks], "x", color='r')
+#titles and labels
+    fig.suptitle("")
+    plt.ylabel("Breaths", fontsize=16 )
+    plt.xlabel("Time(ms)", fontsize=16)
+    plt.legend(loc="lower left")
 
 #saves teh file
     #savefilename = (str(file_name) + '.png')
