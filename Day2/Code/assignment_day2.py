@@ -8,8 +8,7 @@ import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from skimage import io
-from skimage.transform import resize
+
 from scipy.signal import find_peaks
 data_files = (os.listdir("/users/viveckkingsley/ManchesterBioinformaticsCourse_Student/Day2/Code/breathing_data"))
 for files in data_files:
