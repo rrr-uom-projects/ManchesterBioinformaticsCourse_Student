@@ -14,12 +14,35 @@ import numpy as np
 import matplotlib.pyplot as plt
 from os import listdir
 from scipy.signal import find_peaks
-#open first csv
-#loads an individual csv and tells loadtxt that this file is delimited by ","
-file_list = listdir('/home/ali/git_repos/ICT_module/ManchesterBioinformaticsCourse_Student/Day2/Code/breathing_data/')
+from matplotlib import pyplot as plt
+import numpy as np
+import re
+from os import listdir
+from scipy.signal import find_peaks
+
+#paths for input and output
+folder_input = '/Users/keithgraham/PycharmProjects/ICT/ManchesterBioinformaticsCourse_Student/day2/code/breathing_data/'
+
+#file_list is a variable with the method listdir()
+#listdir returns the name of the entries in the directory given by path
+#a list of the .csv files in directory breathing_data has been saved to the variable file_list using the method listdir
+#e.g Breathing_data --> p01.csv, p02.csv
+###file_list = listdir('/Users/keithgraham/PycharmProjects/ICT/ManchesterBioinformaticsCourse_Student/day2/code/breathing_data/')
+file_list = listdir(folder_input)
+#we created an empty dictionary because we are going to put stuff in it
+#what are we putting in it, if I (#) comment the line it doesnt seem to affect the script?
 contents = []
+#we created a for loop
+#file_name is the variable defined by the loop
+#loop is used to iterate over a sequence (in this case a list of .cvs files saved to the variable file_list)
 for file_name in file_list:
-    p01 = np.loadtxt(r"/home/ali/git_repos/ICT_module/ManchesterBioinformaticsCourse_Student/Day2/Code/breathing_data/" + file_name, delimiter=",")
+#p01 is the variable to which the method numpy.loadtxt is saved
+#r tell python to treat it as a raw string, but why (?)
+#numpy reads structured data stored in a text file ( follows the file path to the .cvs files (?)
+#mumpy.loadtxt is brought to the direcroty breathing_data where the file_name variable created via the for loop tells .loadtxt to read each .cvs
+#delimiter is a character that seperate text strings, we are putting "," between the data point in each .cvs file ?
+    ###p01 = np.loadtxt(r'/Users/keithgraham/PycharmProjects/ICT/ManchesterBioinformaticsCourse_Student/day2/code/breathing_data/ + file_name, delimiter","
+    p01 = np.loadtxt(folder_input + file_name, delimiter=",")
     # Moving averages window function - ours
     N = int(p01[0,:].shape[0]/40) # Try changing the window width to see the effect on the filtered signal
     window = np.ones(N)
@@ -30,7 +53,10 @@ for file_name in file_list:
     plt.plot(p01[0,:], p01[1,:], linewidth=2)
     plt.plot(p01[0,:], convolved, color='black')
     plt.plot(peaks, convolved[peaks], "x", color='r')
-    savefilename = (str(file_name) + '.png')
+
+#saves teh file
+    #savefilename = (str(file_name) + '.png')
+
     print(savefilename)
     plt.savefig(savefilename)
 
