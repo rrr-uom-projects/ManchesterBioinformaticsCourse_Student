@@ -17,9 +17,10 @@ from scipy.signal import find_peaks
 #open first csv
 #loads an individual csv and tells loadtxt that this file is delimited by ","
 file_list = listdir('/home/ali/git_repos/ICT_module/ManchesterBioinformaticsCourse_Student/Day2/Code/breathing_data/')
-contents = []
+
 for file_name in file_list:
     p01 = np.loadtxt(r"/home/ali/git_repos/ICT_module/ManchesterBioinformaticsCourse_Student/Day2/Code/breathing_data/" + file_name, delimiter=",")
+    #p01 = np.core.defchararray.strip(p01, chars='\n')
     # Moving averages window function - ours
     N = int(p01[0,:].shape[0]/40) # Try changing the window width to see the effect on the filtered signal
     window = np.ones(N)
