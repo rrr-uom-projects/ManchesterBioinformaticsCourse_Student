@@ -27,12 +27,12 @@ plt.xlabel("Light intensity")
 plt.show()
 plt.close()
 '''
-what does the histogram show?
-a light intensity of 0 is black, so less dense objects such as the air in the lungs and the air
-outside the patient's body appear black.
-all the tissue appears at an intensity of 50
-the muscles and organs are more dense, so appear grey.
-the bones appear almost white and are close to 254
+The histogram represents the light intensities of each pixel in the x-ray of a patient. The histogram shows four different peaks which encompass the different organs and regions of the body. By changing the window and level, we can filter pixels and show only those that lie in between certain intensities.
+- The first peak, between 0 and 10, represents the region next to the patient and also air in the lungs of the patient
+- The second peak, between 40 and 60, represents less dense tissue such as fat surrounding the lower abdomen
+- The third peak, between 70 and 90, represents more dense organs such as the heart and the liver
+- The final peak, at 244-255, represents the bones of the patient
+We also note that we find some abnormal tissues in the lungs and near the oesophagus, suggesting that the patient has cancer.
 '''
 
 def image_manipulator(window, level):
