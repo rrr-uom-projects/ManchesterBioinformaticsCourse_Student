@@ -3,7 +3,6 @@ Refer to Practical2_instructions.pdf for a guide
 
 Remember - comments are not optional
 """
-<<<<<<< HEAD
 print("Hello World")
 
 #importing required packages and modules
@@ -72,9 +71,20 @@ plt.show()
 type(x)
 
 #Convolving data
-import pandas as pd
+import pandas as pd #successful
+import scipy.signal as signal
 import matplotlib.pyplot as plt
 
+xValues = data[0]
+N = int(xValues.shape[0]/32)
+window = np.ones(N)
+convolved = np.convolve(window/window.sum(), data[1], mode='same')
+
+#Plot convolved data
+plt.plot(xValues, convolved)
+plt.show()
+
+##To delete:
 # Plot the Raw Data
 ts = rawdata[0:500]
 plt.plot(ts, 'r-')
@@ -83,44 +93,42 @@ plt.ylabel('Lightpower (V)')
 #    previous version
 #    smooth_data = pd.rolling_mean(rawdata[0:500],5).plot(style='k')
 #    changes to pandas require a change to the code as follows:
-smooth_data = pd.Series(ts).rolling(window=7).mean().plot(style='k')
+smooth_data = pd.Series(data).rolling(window=7).mean().plot(style='k')
 plt.show()
 
-    # Moving averages window function
+# Moving averages window function
 N = x.shape[0]/32 # Try changing the window width to see the effect on the filtered signal
 window = np.ones(N)
 convolved = np.convolve(window/window.sum(), sinWithRealNoise, mode='same')# Note - divide by the sum of the window to 
                                                                         #    maintain normalisation
 plt.plot(x, convolved)
 plt.plot(x, sin4, linewidth=2)
+######################################################################
 
-convolved = np.convolve(x, y) #or try mode=full 
-np.convolve(x, y)
-#data
-convolved
-plt.plot(x, convolved)
+#Find peaks in graph
+peaks_data = scipy.signal.find_peaks(convolved) #use convolved data to find peaks
+print(peaks_data)
+print(convolved[peaks_data[0]])
+
+peaks = np.asarray(peaks_p01)
+print(peaks)
+print(type(peaks))
+print(xValues[peaks])
+
+#plot raw data and convoluted data
+plt.plot(x, y, color='k')
+plt.plot(xValues, convolved, color='r')
+plt.scatter(xValues[peaks_data], peaks, colour='g')
 plt.show()
 
-import scipy as sp
-import pandas as pd
+#plot raw data and convolved data with peaks
+plt.plot(p01_data[0], p01_data[1], color='g', label="Raw Data")
+plt.plot(xValues, convolved, color='b', label="Convolved Data")
+plt.scatter(xValues[peaks_p01[0]], convolved[peaks_p01[0]], color='r', marker='o', label="Peaks")
+plt.xlabel("Time")
+plt.ylabel("Amplitude")
+plt.legend()
+plt.show()
 
-#N = xValues.shape[0]/32 # Try changing the window width to see the effect on the filtered signal
-#window = np.ones(N)
-#convolved = np.convolve(window/window.sum(), sinWithRealNoise, mode='same')# Note - divide by the sum of the window to 
-                                                                        #    maintain normalisation
-#plt.plot(xValues, convolved)
-#plt.plot(xValues, sin4, linewidth=2)
-
-#find peaks in graph
-#find_peaks(convolved)
-#scipy.signal.find_peaks(convolved)
-
-#Calculate peak to peak interval
-=======
-
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.signal import find_peaks 
-
->>>>>>> e347c4db38504839df02af1279de34583702e95a
+plt.savefig("P01_plot.png")
 
