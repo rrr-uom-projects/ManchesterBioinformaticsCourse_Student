@@ -12,8 +12,6 @@ import skimage.io
 from skimage.io import imread
 from scipy.ndimage import rotate
 from scipy.ndimage import interpolation 
-
-
     
 def shiftImage(the_shifts): 
     """
@@ -39,7 +37,11 @@ def shiftImage(the_shifts):
     # Draws update to canvas
     fig.canvas.draw()
 
-if __name__ == "__main__":
+def main():
+    #make Lungs 2, floating and fig global so they can be accessed within shiftImage
+    global Lungs2   
+    global floating 
+    global fig
     # Read data
     Lungs1 = imread("Lungs.jpg", as_gray = True)
     Lungs2 = imread("Lungs2.jpg", as_gray = True)
@@ -56,8 +58,10 @@ if __name__ == "__main__":
     # Use shift image to find the shift required to register the images.
     # Shift required is [-16, -40]
     shiftImage([-16, -40])  
-    
     # Display images
     plt.show()
     plt.close()
-    
+
+if __name__ == "__main__":
+# To allow main function to run
+    main()
