@@ -46,15 +46,31 @@ data = np.mean(lung1,-1)
 # from print(lung1.shape) --> this image is (569, 600, 3), -1 will take the "3" channels thing
 
 # data[data >1] = to get rid of the black pixels (0,1) (those around the edges)?
+# .flatten() = for flattening the 2D-array to plot the histogram
+# bins 
 plt.hist(data[data >1].flatten(), bins = 254)
+plt.xlabel("Value of Pixels") # this is the intensity - how bright/dark at that particular pixel
+plt.ylabel("Number of Pixels") # counting how many pixels in lung1 have the same intensity
 plt.show()
 
+
+# maximum and minimum of values of the array for lung1
+print(np.min(lung1), np.max(lung1))
+# min = 0; max = 255 for lung1
 
 ###########################################################
 #Q5. Write a function that displays the CT image with different lindow levels. 
 #    The input variables should be the window and the level.
 ###########################################################
+def use_window (window, level): 
+    fig = plt.figure() # create a new figure called fig
+    
 
+    plt.imshow(data, cmap="Greys_r", vmin=(level - (window/2)), vmax=(level + (window/2)))
+
+# SInce different structures will have differnt intensity (diff value in that pixel), 
+# by having this function, it will allow us to apply different windows, 
+# and thus can concentrate of the structures of interesting while excluding other parts
 
 
 
