@@ -11,5 +11,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 from skimage.io import imread 
 
-# Load the file, CT.jpg
+# Load the file, lungs.jpg
+image = imread("lungs.jpg")
+
+# Display the image
+plt.imshow(image)
+plt.show()
+
+# Plot a histogram of the lungs.jpg image
 
