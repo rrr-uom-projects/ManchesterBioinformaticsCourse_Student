@@ -1,56 +1,85 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jan 20 17:09:00 2021
+Assignment Part 2 (Day 3)
+_________________________
 
-@author: viveckkingsley
+Viveck Kingsley 
+
+Owen Williams
+
+_________________________
+
+Opening Lung Images:
 """
-
+# Import Libraries
 import matplotlib.pyplot as plt
 import numpy as np
 from skimage import io
 from scipy.ndimage import interpolation
+
+# Use io.imread() to open the three lung images using the correct file path, np.mean used to average array of the last RGB channel (-1)
+
 image = np.mean(io.imread("/Users/viveckkingsley/ManchesterBioinformaticsCourse_student/Day3/Code/lungs.jpg"), -1)
-plt.imshow(image)
-plt.show()
+
 image2 = np.mean(io.imread("/Users/viveckkingsley/ManchesterBioinformaticsCourse_student/Day3/Code/lungs2.jpg"), -1)
-plt.show()
+
 image3 = np.mean(io.imread("/Users/viveckkingsley/ManchesterBioinformaticsCourse_student/Day3/Code/lungs3.jpg"), -1)
-fig = plt.figure()
-ax = fig.add_subplot(111)
-floating = ax.imshow(image, cmap="Greys_r") and ax.imshow(image2, cmap="Greys_r", alpha=0.5)
-plt.show()
+
+"""
+_______________________
+
+Overlaying images in the same axis:
+"""
+
+fig = plt.figure() # Create Figure using matplotlib.
+ax = fig.add_subplot(111) # Creating plot - (111) means the creation of a 1x1 grid, plot 1.
+""" Reverse greyscale colour map was used for easy visualisation of the appropriate tissue. """"
+ax.imshow(image, cmap="Greys_r")  # Image on axis, with colormap Greys_r used.
+floating = ax.imshow(image3, cmap="Greys_r", alpha=0.5) # Alpha = 0.5 to make image 3 semi transparent (0.5).
+
+"""
+_______________________
+
+Shift_Function to translate/rotate image 3 onto image:
+"""
+
+""" shifts argument allows for manual selection of movement in x and y planes, as well as r (=rotation), which allows for rotation of image 3 """"
+def shift_image(shifts, r):
+    global image3
+#    ax1.imshow(image, cmap="Greys_r", alpha = 1) 
+# .shift function of image 3 is assigned to "shifting" variable, and functions by translating image 3 with shifts[0] and shifts[1].
+    shifting = interpolation.shift(image3, (shifts[0], shifts[1]), mode="nearest") 
+    rotating = interpolation.rotate(shifting, r, reshape=False)
+#    ax1.imshow(floating, cmap="Greys_r", alpha = 0.5)
+    floating.set_data(rotating)
+    fig.canvas.draw()
+    
+# shift_image([y, x], r)
 
 def eventHandler(event):
-    """
-    This function handles deciphering what the user wants us to do, the event knows which key has been pressed.
-    """
     up = 0
-    whichKey = event.key
+    left = 0
+    right = 0
+    down = 0
+    whichKey=event.key
+    print(whichKey)
     if whichKey == "up":
-        up = 1
-    print(up)
+        shift_image([-100, 0], 0)
+    elif whichKey == "left":
+        shift_image == ([0, 100], 0)
+    elif whichKey == "down":
+        shift_image == ([-100, 0], 0)
+    elif whichKey == "right":
+        shift_image == ([100, 0], 0)
+    elif whichKey == "r":
+        shift_image == ([0, 0], 100)
+    elif whichKey == "t":
+        shift_image == ([0, 0], -100)
     
-def shift_image(x, y, r):
-    global image2
-    global image3
-    fig = plt.figure()
-    ax1 = fig.add_subplot(111)
-    ax1.imshow(image, cmap="Greys_r", alpha = 1)
-    floating = interpolation.shift(image3, (y, x), mode="nearest")
-    rotating = interpolation.rotate(floating, r, reshape=False)
-#    ax1.imshow(floating, cmap="Greys_r", alpha = 0.5)
-    ax1.imshow(rotating, cmap="Greys_r", alpha = 0.5)
-    plt.show()
-    fig.canvas.mpl_connect('key_press_event', eventHandler)
-    plt.show()
-    
-shift_image(-32,-5.5, -3)
+fig.canvas.mpl_connect('key_press_event', eventHandler)
 
-
-    
-    
-    
+plt.show()
 
 
 
