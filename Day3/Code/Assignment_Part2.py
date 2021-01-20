@@ -35,7 +35,6 @@ axLung2.title.set_text("Lung 2 overlaid Lung 1")
 #named the axes for lungImage2 so we can move it later on
 floating2 = axLung2.imshow(lungImage2, alpha = 0.2)
 
-
 figLung3, axLung3 = plt.subplots(1,1)
 axLung3.imshow(lungImage, alpha = 0.5)
 axLung3.title.set_text("Lung 3 overlaid Lung 1")
@@ -54,14 +53,53 @@ def shiftImage(shifts, rotation):
 def shiftRotateImage(shifts, rotation):
     global lungImage3
     lungImage3 = interpolation.shift(lungImage3, shifts, mode="nearest")
-    lungImage3 = rotate(lungImage3, rotation)
+    lungImage3 = rotate(lungImage3, rotation, reshape=False)
     floating3.set_data(lungImage3)
     figLung3.canvas.draw()
 
 shiftRotateImage([0, -30], -3)
-plt.show()
+#This now shows the both the lung2 overlaid lung1 and lung 3 overlaid lung1
+
 
 """Q14 Moves it down by 10 (because the y axis is flipped), and to the right by 20
 Q15 shiftImage([-20, -40]) seems to align both images 
 Q16 We have added rotation and -3, [0,-30] is about right.
 """
+"""This function takes a user input and alters the image: up, left, right and down translate
+the image in that respective direction, enter is a clockwise rotation and backspace is reverse"""
+"""decalre down , right and anticlockwise outside of function as zero. The function can then track
+the changes its makes, by declaring them within the function as global variables. If not then it
+would reset them to 0 every new event"""
+d = 0
+r = 0
+acw = 0
+def eventHandler(event):
+    whichKey = event.key
+    global d
+    global r
+    global acw
+    print(whichKey)
+    if whichKey == "up":
+        shiftRotateImage([-1,0],0)
+        d -= 1
+    if whichKey == "down":
+        shiftRotateImage([1,0],0)
+        d += 1
+    if whichKey == "right":
+        shiftRotateImage([0,1],0)
+        r += 1
+    if whichKey == "left":
+        shiftRotateImage([0,-1],0)
+        r -= 1
+    if whichKey == "enter":
+        shiftRotateImage([0,0],-1)
+        acw -= 1
+    if whichKey == "backspace":
+        shiftRotateImage([-1,0],1)
+        acw += 1
+    print("You moved {} down, {} right and roated {} anti-clockwise".format(d,r,acw))
+
+    
+figLung3.canvas.mpl_connect("key_press_event", eventHandler)
+plt.show()
+
