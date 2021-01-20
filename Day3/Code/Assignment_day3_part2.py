@@ -47,9 +47,17 @@ def eventHandler(event):
     whichKey = event.key
     print(whichKey)
     if whichKey == "up":
-    #    up = 1
-    #print (up)
         shift_image([-1,0], 0)
+    elif whichKey =="down":
+        shift_image([1,0], 0)
+    elif whichKey == "left":
+        shift_image([0, -1], 0)
+    elif whichKey == "right":
+        shift_image([0, 1], 0)
+    elif whichKey == "a":
+        shift_image([0,0], -1)
+    elif whichKey == "d":
+        shift_image([0,0], 1)
 
 fig.canvas.mpl_connect('key_press_event', eventHandler)
 
