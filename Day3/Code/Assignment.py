@@ -17,6 +17,7 @@ from skimage.io import imread
 
 
 def main(): 
+    # Load data and image
     file_data = load_image("lungs.jpg")
     #In histogram, we do not want to include include black space so we use file_data>1
     histogram(file_data[file_data>1])
@@ -29,6 +30,7 @@ def main():
     # Higher intensity shows bones, middle shows soft tissue,
     # with a difference between muscle and organ. The zero values 
     # show air. 
+    
     plt.show()
     plt.close()
     
@@ -67,9 +69,9 @@ def histogram(file_data):
     None.
 
     """
-    #create figure we wish to draw to
+    #create figure space we wish to draw to
     plt.figure() 
-    #Create histogram. Array must first be flattened
+    #Create histogram. Array must first be flattened. 
     plt.hist(file_data.flatten(), bins=255) 
     #Draw figure
     plt.draw() 
@@ -101,9 +103,9 @@ def transform_window(file_data, window, level):
     #linear function
     y = m*file_data+c
     #Lower values
-    y[file_data < (level -(1/2)*window)] = 0
+    y[file_data < (level - (1/2)*window)] = 0
     #upper values
-    y[file_data > (level +(1/2)*window)] = y_max
+    y[file_data > (level + (1/2)*window)] = y_max
     
     #Plot the transformed image
     plt.figure()
