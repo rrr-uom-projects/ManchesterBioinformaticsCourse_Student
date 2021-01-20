@@ -32,18 +32,12 @@ plt.show()
 
 #Move the 2nd image relative to the 1st.
 fig = plt.figure()
-#Create a 1x1 grid of subplots, with ax specifying position 1
-ax = fig.add_subplot(111) 
+ax = fig.add_subplot(111) #Create a 1x1 grid of subplots, with ax specifying position 1
 ax.imshow(lungs1, cmap="Greys_r") #Plonks 1st image in space designated by ax
-#Specify a variable which plonks 2nd image in space designated by ax
-floating = ax.imshow(lungs2, alpha=0.5, cmap="Reds_r")  
-#Shift 2nd image realtive on its own axes. 
-#2nd argument (change in y, change in x)
-lungs2 = interpolation.shift(lungs2, (60, -300), mode="nearest")
-#Update the shifted position of 2nd image in the variable floating
-floating.set_data(lungs2)
+floating = ax.imshow(lungs2, alpha=0.5, cmap="Reds_r")#Specify a variable which plonks 2nd image in space designated by ax
+lungs2 = interpolation.shift(lungs2, (60, -300), mode="nearest")#Shift 2nd image realtive on its own axes. 2nd argument (change in y, change in x)
+floating.set_data(lungs2) #Update the shifted position of 2nd image in the variable floating
 plt.show()
 
-#You can change the position of the second image by inputting different x and 
-#y values into interpolation.shift function. Its not very interactive, but
-#hey, its a start.
+#You can change the position of the second image by inputting different x and y values into interpolation.shift function. 
+#Its not very interactive, but hey, its a start.
