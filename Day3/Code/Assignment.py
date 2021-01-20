@@ -30,9 +30,9 @@ plt.hist(data[data > 1].flatten(), bins=254)#flatten converts the image into a
 
 plt.show()
 #print the image after modification
-print(np.min(image), np.max(image))
+print(np.min(data), np.max(data))
 #Here you can display your histogram
-plt.imshow(image, cmap="Greys_r", vmin=0.0, vmax=1.0)
+plt.imshow(data, cmap="Greys_r", vmin=0.0, vmax=1.0)
 #To see your original image before modificaiton
 plt.show()
 
@@ -41,8 +41,29 @@ Explaining the histogram - the histogram shows the number of pixels of each
 possible gray value (intensity). y axis = number of pixels, x axis = possible pixel values (intensity)
 The x axis goes from 1 to 255 where 1 = almost-black and 255 = white
 """
+#We created a function to perform transformation of the image to hone in on different ranges of gray values
+#In order to focus on different structures in the image with different intensities
+#We used window and level as input for the plt.imshow arguments vmin and vmax.
+def window_level_transform (window, level):
+    plt.imshow(data, cmap="Greys_r", vmin=(level - (window/2)), vmax=(level + (window/2)))
+    plt.show()
+    return
 
-def level_transform (window, level):
+
+window_level_transform(100, 200)
+window_level_transform(30, 60) 
+#There is a peak on the histogram at a gray value of around 60, 
+#we transformed the image to highloght these pixels
+#The size of the window is 30, the level is 60, this highlights soft tissue
+window_level_transform(110, 90)
+#In this transformation both peaks are encompassed by the window which 
+#highlights all soft tissue structures
+window_level_transform(50, 125)
+#This adjustment gives better detail on higher density internal organs
+
+
+
+
     
 
 
