@@ -1,14 +1,11 @@
 """
-Refer to Assignment.pdf for instructions!
-
-Remember - this is assessed. Make sure your code is nicely structured
-
-Comments are not optional
+Created on Wed Jan 20 2021
+Authors: Nermeen and Helena
+Title: This is Part 1 of Day 3. 
+Description: In this task we need to load an image, plot a histogram of 
+pixel intensity values and adjust the levels to highlight different tissues
+in the image.
 """
-
-"""We are Nermeen and Helena group. This is the first part of Day3 tasks. For this task, we need to load lungs.jpg image and plot 
-
-a histogram image. This allows us to identify the distribution of the values of the lungs.jpg image."""
 
 #Import the required libraries.
 import numpy as np #this library deals with the image as an array of numbers
@@ -16,25 +13,22 @@ import matplotlib.pyplot as plt #this is used to plot the figures
 from skimage import io #this is used for image processing
 
 
-#Load the image
-image= io.imread('lungs.jpg')
-#You can use the following two lines to see your image before moving on (just remove the #).
-#plt.imshow(image)
-#plt.show()
+#Load the image - by default this loads a 3 channel image which is why we are not using it.
+#image= io.imread('lungs.jpg')
 
-#To plot the figure we use matplotlib
-data = np.mean(io.imread("lungs.jpg"), -1) #this will take the mean of all channels. -1 refers to the channels
-plt.hist(data[data > 1].flatten(), bins=254)#flatten converts the image into a 
-#1D array then a histogram is plotted with 254 bins to reflect each possible gray value
-#[data > 1] is used because there LOADS of pixels with the value 0
 
+#Loading the image like this using np.mean averages the 3 channels so there is only 1 intensity value for each pixel.
+data = np.mean(io.imread("lungs.jpg"), -1) #the -1 specifies that it is the channels to be averaged.
+plt.imshow(data, cmap="Greys_r") #Display image using grey colormap
 plt.show()
-#print the image after modification
+
+#Plotting the histogram using matplotlib
+plt.hist(data[data > 1].flatten(), bins=254)#flatten converts the image into a 1D array then a histogram is plotted with 
+#254 bins to reflect each possible gray value [data > 1] is used because there LOADS of pixels with the value 0
+plt.show()
+
+#Print the minimum and maximum values in the array just out of curiosity....
 print(np.min(data), np.max(data))
-#Here you can display your histogram
-plt.imshow(data, cmap="Greys_r", vmin=0.0, vmax=1.0)
-#To see your original image before modificaiton
-plt.show()
 
 """
 Explaining the histogram - the histogram shows the number of pixels of each 
