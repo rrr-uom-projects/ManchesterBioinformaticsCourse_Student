@@ -3,6 +3,7 @@ Refer to Practical2_instructions.pdf for a guide
 
 Remember - comments are not optional
 """
+<<<<<<< HEAD
 print("Hello World")
 
 #importing required packages and modules
@@ -115,4 +116,11 @@ import pandas as pd
 #scipy.signal.find_peaks(convolved)
 
 #Calculate peak to peak interval
+=======
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.signal import find_peaks 
+
+>>>>>>> e347c4db38504839df02af1279de34583702e95a
 
