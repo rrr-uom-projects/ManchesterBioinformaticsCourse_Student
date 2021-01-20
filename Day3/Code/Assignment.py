@@ -19,4 +19,12 @@ plt.imshow(image)
 plt.show()
 
 # Plot a histogram of the lungs.jpg image
+data = np.mean(io.imread("lungs.jpg"), -1) # read the image and take the mean of the channels
+plt.hist(data.flatten(), bins=254) # figure out what 0 represents
+plt.show()
+plt.hist(data[data > 1].flatten(), bins=254) # why do we need this data > 1
 
+
+
+#hist(image.flatten(),bins=255,facecolor="Red",edgecolor="Black")
+#plt.show()
