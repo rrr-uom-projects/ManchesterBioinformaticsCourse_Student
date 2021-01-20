@@ -50,11 +50,9 @@ def lindow (level, window):
     ax3.imshow(lungs_image, interpolation = "none", cmap = "Greys_r", vmin = vmin, vmax = vmax) #plot the image with minimum and maximum values defined by function
     plt.show()
 
-# lindow function for most right hand side peak between 5 and 10 is likely air/background
-lindow(5,10)
-# lindow function for the second most peak likely soft tissue
-lindow(60,20)
-#Muscles organs
-lindow(120,60)
-#
+lindow(5,10) # lindow function for most right hand side peak between 5 and 10 is likely air/background
+lindow(60,20) # lindow function for the second most peak likely soft tissue/organs
+lindow(120,60) #Muscles organs
+lindow(252, 4) #spots of bone or calcification?
+lindow(200, 100) #organs what are dense? and bone?
 # %%
