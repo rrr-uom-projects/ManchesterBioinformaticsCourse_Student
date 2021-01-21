@@ -149,3 +149,47 @@ plt.show()
     #Parts of histogram with lower peaks refer to those increased density regions such as bone as there is higher X-ray attenuation
     
 
+# Part 2 #
+import numpy as np
+import skimage.io
+import scipy.signal
+import matplotlib.pyplot as plt
+from scipy.ndimage import interpolation, rotate
+
+# Load and display images 'lungs.jpg' and 'lung2.jpg'
+lungs2_image = io.imread("lungs.jpg")
+plt.imshow(lungs2_image)
+
+lungs_image = io.imread("lungs.jpg")
+plt.imshow(lungs_image)
+
+# Make a plot where you can see both images on the same plot using transparency
+#plt.figure()
+floating_image = io.imread("lungs2.jpg") #moving image
+background_image = io.imread("lungs.jpg")
+plt.imshow(lungs_image, cmap="Greys_r") #puts 'lungs.jpg' in background
+plt.imshow(floating_image, alpha=0.0, cmap="Greys_r") #puts 'lungs2.jpg' in front and alpha=0.5 makes for partial transparency. increase or decrease alpha value to make front image less or more see through, respectively
+#plt.imshow(interpolation.shift(floating_image, (10, 20, 0))) #Because RGB image so has three dimensions and thus shifting parameter requires 3 values
+plt.show()
+
+help(plt.imshow)
+help(interpolation.shift)
+plt.show()
+#M = np.float32([[1, 0, 50],
+#                [0, 1, 50])
+##
+## apply a perspective transformation to the image
+#translated_img = cv2.warpPerspective(img, M, (cols, rows))
+## disable x & y axis
+#plt.axis('off')
+## show the resulting image
+#plt.imshow(translated_img)
+#plt.show()
+
+##Write a function that would shift floating image
+def shiftImage(x, y, image = floating_image):
+    global floating_image
+    plt.imshow(interpolation.shift(floating_image, (y, x, 0), mode = "nearest"))
+    return plt.show(floating_image)
+
+shiftImage(40, 30)
