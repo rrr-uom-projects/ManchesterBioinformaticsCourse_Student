@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Assignment Part 1
+Assignment Part 2
 Naomi/Ali/Keith
 The #%% allowed me to run it as a cell (similar to jupyter notebook) and
 see it the final graphs in a tab in VScode, wont cause any problem if you delete/if it causes issues
@@ -17,13 +17,13 @@ from scipy.ndimage import interpolation
 from scipy.ndimage import rotate
 
 #Load images lungs.jpg, lungs2.jpg, lungs3.jpg
-folder_input = '/home/ali/git_repos/ICT_module/ManchesterBioinformaticsCourse_Student/Day3/Code/'
+folder_input = '/home/ali/git_repos/ICT_module/ManchesterBioinformaticsCourse_Student/Day3/Code/' #change folder to your local path. for windows, add (r'<path>' to avoid issues with \)
 lungs_image = np.mean(imread(folder_input + 'lungs.jpg'), -1)
 lungs_image_2 = np.mean(imread(folder_input + 'lungs2.jpg'), -1)
 lungs_image_3 = np.mean(imread(folder_input + 'lungs3.jpg'), -1)
 
 fig = plt.figure() #set up a figure space, I had to take this out the function to be able to call it outside of the function
-ax = fig.add_subplot(111) #add subplots for each thing - images and histogram
+ax = fig.add_subplot(111) 
 ax.imshow(lungs_image, cmap="Greys_r")  #designates the static image on the plot
 floating = ax.imshow(lungs_image_3, cmap="Greys_r", alpha = 0.5) # and designates the floating image, alpha shows transparency level
 
@@ -38,10 +38,12 @@ def shiftimage(coordinate_list):
     lungs_image_3 = rotation_shift #Changes the lungs_image_3 variable as per the above changes
     floating.set_data(lungs_image_3) # updates figure axis
     fig.canvas.draw() #updates figure if displayed
+    
+###Note - co-ordinates should be horizontal, vertical? But it's definitely veritical first in the function.
 
 ###Moving checks need to double check inputs (I got frustrated and messed around with them)
-#lung_1_and_2_overlay = shiftimage([-18,-33, 0]) ###CHECK These input shifts should roughly level the top and bottom images
-#lung_1_and_3_overlay = shiftimage([-18,33, -3]) ###CHECK these input shifts should roughly level the top and bottom images
+lung_1_and_2_overlay = shiftimage([-14,-40, 0]) #Roughly overlays images 1 + 2
+lung_1_and_3_overlay = shiftimage([-6,-34, -3]) #Roughly overlays images 1 + 3
 
 def eventHandler(event):
     #This function handles deciphering what the user wants us to do, the event knows whichkey has been pressed.
