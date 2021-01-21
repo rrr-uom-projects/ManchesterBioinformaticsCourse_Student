@@ -1,5 +1,8 @@
 #Assignment part 2 from ed and sophie
 #20/01/2021
+#This script first shows two images of the same lung side by side,
+#once the user closes this window they can then use the arrow keys, enter and
+#backspace to manually register a third lung image over the first lung image
 
 import os
 import matplotlib.pyplot as plt 
@@ -50,6 +53,7 @@ def shiftImage(shifts, rotation):
     floating2.set_data(lungImage2)
     figLung2.canvas.draw()
 
+
 def shiftRotateImage(shifts, rotation):
     global lungImage3
     lungImage3 = interpolation.shift(lungImage3, shifts, mode="nearest")
@@ -59,7 +63,6 @@ def shiftRotateImage(shifts, rotation):
 
 shiftRotateImage([0, -30], -3)
 #This now shows the both the lung2 overlaid lung1 and lung 3 overlaid lung1
-
 
 """Q14 Moves it down by 10 (because the y axis is flipped), and to the right by 20
 Q15 shiftImage([-20, -40]) seems to align both images 
@@ -78,28 +81,27 @@ def eventHandler(event):
     global d
     global r
     global acw
-    print(whichKey)
     if whichKey == "up":
         shiftRotateImage([-1,0],0)
         d -= 1
-    if whichKey == "down":
+    elif whichKey == "down":
         shiftRotateImage([1,0],0)
         d += 1
-    if whichKey == "right":
+    elif whichKey == "right":
         shiftRotateImage([0,1],0)
         r += 1
-    if whichKey == "left":
+    elif whichKey == "left":
         shiftRotateImage([0,-1],0)
         r -= 1
-    if whichKey == "enter":
+    elif whichKey == "enter":
         shiftRotateImage([0,0],-1)
         acw -= 1
-    if whichKey == "backspace":
+    elif whichKey == "backspace":
         shiftRotateImage([-1,0],1)
         acw += 1
     print("You moved {} down, {} right and roated {} anti-clockwise".format(d,r,acw))
 
-    
+
 figLung3.canvas.mpl_connect("key_press_event", eventHandler)
 plt.show()
 
