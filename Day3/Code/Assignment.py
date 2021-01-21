@@ -59,12 +59,12 @@ plt.show()
 
 
 
-<<<<<<< HEAD
 Comments are not optional
 """
 ### Name: Jadene Lewis
 ### Date: 20/01/21
 ### Title: Image processing in Python: assignment
+"""
 
 # Import libraries/modules required:
 import numpy as np
@@ -87,54 +87,65 @@ os.chdir("C:/Users/jaden/bioinformatics-course/code/ManchesterBioinformaticsCour
 #To make images bigger than default size
 plt.rcParams['figure.figsize'] = (16.0, 12.0)
 
-##Load file "lungs.jpg"
-    #lungs_image = ("lungs.jpg")
-lungs_image = plt.imshow(mpimg.imread("lungs.jpg"))
-plt.show() #what is the difference between plt.imshow() and plt.show()
+##Switch to appropriate 
+os.getcwd()
+os.chdir("C:/Users/jaden/bioinformatics-course/code/ManchesterBioinformaticsCourse_Student/Day3/Code")
+os.getcwd()
+
+
+#LOAD FILE 'lungs.jpg'
+lungs_image = skimage.io.imread("lungs.jpg")
+plt.imshow(lungs_image)
+#plt.show(plt.imshow(lungs_image)) #what is the difference between plt.imshow() and plt.show()
 
 print(lungs_image)
-print(lungs_image.shape)
+print(lungs_image.shape) #returns [569, 600, 3]= 569 pixels wide and 600 pixels tall, 3 color channels
 lungs_image.shape #returns an array showing how many channels, how many pixels tall and wide
-print(lungs_image.dtype)
+print(lungs_image.dtype) #uint8
 
-#Plot histogram of the image.
-#Histogram of an image is a graphical representation of the amount of pixels of each intensity value (from 0 [black] to 255 [white])
-plt.title("Histogram for Image")
-plt.xlabel("Value")
-plt.ylabel("pixels Frequency")
-plt.hist(x)#hist function is used to plot the histogram of an image.
+#Plot histogram of image
+data = np.mean(lungs_image,-1) 
+plt.hist(data[data >1].flatten(), bins = 254)
 plt.show()
 
-#Plot of original image
-lungs_im = mpimg.imread("lungs.jpg") #image slicing into 2D
-fig= plt.figure() 
-x =lungs_im[:,:,0] # x-coordinate denotation
-plt.xlabel("Value") # y coorindate denotation
-plt.ylabel("Pixels Frequency") # title of an image
-plt.title("Original Image") # imshow function with comparison of gray value
-plt.imshow(x, cmap="gray") # plot the image on a plane
-plt.show()
-
+#### to delete ######
+lung_im = io.imread("lungs.jpg",as_gray=True)
+fig = plt.figure()
 ax = fig.add_subplot(211)
 ax2 = fig.add_subplot(212)
-ax.imshow(lungs_im, interpolation = "none", cmap="Greys_r", vmin = 0.5, vmax = 0.8)
-ax2(lungs_im.flatten(), bins=255, facecolor="Red",edgecolor="Black")
-plt.show()
+ax.imshow(lung_im, interpolation="none", cmap="Greys_r", vmin=0.5, vmax=0.8)
+ax2.hist(lung_im.flatten(),bins=255,facecolor="Red",edgecolor="Black") #histogram of image. im.flatten squishes the image- IMPORTANT!
+plt.show() #HISTOGRAM MATCHES IMAGE more or less
 
-#Histogram
-vals = lungs_im.mean(axis=2).flatten() #calculate mean value from RGB channel
+vals = lungs_image.mean(axis=2).flatten() #calculate mean value from RGB channel
 b, bins, patches = plt.hist(vals, 255)
 plt.xlim([0,255])
 plt.show()
+#########################
 
-#test
-blue = lungs_im[:, :, 2]
-plt.hist(blue.ravel(), bins=255)
-plt.title('Blue Histogram')
+
+#Function that displays CT image at different window levels        
+def window_image(image, window_center, window_width):
+    img_min = window_center - window_width // 2
+    img_max = window_center + window_width // 2
+    window_image = image.copy()
+    window_image[window_image < img_min] = img_min
+    window_image[window_image > img_max] = img_max
+    
+    return io.imshow(window_image)
+
+window_image(lungs_image, 350, 700)
+    
+
+#Windowing, also known as grey-level mapping, contrast stretching, histogram modification or contrast enhancement is the process in which the CT image greyscale component of an image is manipulated via the CT numbers; doing this will change the appearance of the picture to highlight particular structures. The brightness of the image is adjusted via the window level. The contrast is adjusted via the window width.
+#Window of lungs_image
+print(np.min(lung_im), np.max(lung_im)) #0.0, 1.0
+plt.imshow(lung_im, cmap="Greys_r", vmin=0.0, vmax=1.0) #
 plt.show()
 
-ax = plt.hist(lungs_im.ravel(), bins=10)
-plt.show()
-=======
-from scipy.ndimage import interpolation, rotate
->>>>>>> fae673135ad296e431f3479d3f48b96ce333f838
+##Identify which parts of the histogram relate to which parts of the image. 
+#Record info as comments in your code:
+    #Parts of the histogram with higher peaks refer to those less dense regions such as soft tissue (as there is less X-ray attenuation). 
+    #Parts of histogram with lower peaks refer to those increased density regions such as bone as there is higher X-ray attenuation
+    
+
