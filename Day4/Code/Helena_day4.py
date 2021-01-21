@@ -9,9 +9,9 @@ Description: In this task we create a function to register images automatically.
 
 import numpy as np #this library deals with the image as an array of numbers
 import matplotlib.pyplot as plt #this is used to plot the figures
-from skimage import io #this is used for image processing
+#from skimage import io #this is used for image processing
 from scipy.ndimage import interpolation
-from scipy.ndimage import rotate
+#from scipy.ndimage import rotate
 from scipy.optimize import brute
 import pydicom
 #To make the images bigger in size

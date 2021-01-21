@@ -42,18 +42,19 @@ for image in floating_list:
     i += 1
 
 #Plot all 4 registered images side-by-side in a figure with 4 subplots    
-fig2 = plt.figure()
-ax1 = fig2.add_subplot(221)
-ax2 = fig2.add_subplot(222)
-ax3 = fig2.add_subplot(223)
-ax4 = fig2.add_subplot(224)
+fig4 = plt.figure()
+ax1 = fig4.add_subplot(221)
+ax2 = fig4.add_subplot(222)
+ax3 = fig4.add_subplot(223)
+ax4 = fig4.add_subplot(224)
 ax1.imshow(fixed, cmap='Greys_r')
 ax2.imshow(shifted_images[0], cmap='Greys_r')
 ax3.imshow(shifted_images[1], cmap='Greys_r')
 ax4.imshow(shifted_images[2], cmap='Greys_r')
 plt.show()
 
-
+#Save this image as a png
+fig4.savefig("compound_register.png") #matlibplot save function
 
 
 

@@ -72,7 +72,7 @@ def register(shift, fixed, floating):
     return cost
 
 cost1 = register((0, 0), patientImage1.pixel_array, patientImage2.pixel_array)
-print(cost1)#
+print(cost1)# = 684 showing images are not well aligned 
 
 #Automate registering of images
 fixed = patientImage1.pixel_array
@@ -86,13 +86,16 @@ print(registering_shift)
 optimum_shifted_image_position = shiftImage((2.99566717, -25.00354501), floating)
 
 #Plot the image in the position identified by the optimiser
-fig2 = plt.figure()
-ax = fig2.add_subplot(111)
+fig3 = plt.figure()
+ax = fig3.add_subplot(111)
 ax.imshow(patientImage1.pixel_array, cmap='Purples_r')#pixel_array is the image
 ax.imshow(optimum_shifted_image_position, alpha=0.5, cmap='Greens_r')#pixel_array is the image, alpha makes transparent
 plt.show()
 
-print("Done with the first bit")
+#Save this image as a png
+fig3.savefig("brute_register.png") #matlibplot save function
+
+print("Done with the first bit") #Helps keep check of run progress
 
 ##### Trying to register all images to the first####
 
@@ -115,20 +118,20 @@ for floating in floating_list:
     registering_shift = brute(register, ((-100, 100), (-100,100)), args=(fixed, floating))
     registrations.append(registering_shift)
     
-print(registrations)
-print(registrations[1])
+#print(registrations)#Checking out what's inside registrations
+#print(registrations[1])#Remembering how to access lists 
 
-print("Done the next bit")
+print("Done the next bit") #Helps keep check of run progress
 
 #Apply the registrations to the images and stick the shifted images in a list
 shifted_images = []
-i=0
+i=0 #Set counter
 for image in floating_list:
     new_position = shiftImage((registrations[i]), image)
     shifted_images.append(new_position)
-    i += 1
+    i += 1 #Increment counter
     
-print(shifted_images)  
+#print(shifted_images)#Check what's in here
 print("Done")    
  
 #Create a numpy array out of the registrations and save it
