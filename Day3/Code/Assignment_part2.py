@@ -35,7 +35,7 @@ fig = plt.figure()
 ax = fig.add_subplot(111) #Create a 1x1 grid of subplots, with ax specifying position 1
 ax.imshow(lungs1, cmap="Purples_r") #Plonks 1st image in space designated by ax
 floating = ax.imshow(lungs2, alpha=0.5, cmap="Greens_r")#Specify a variable which plonks 2nd image in space designated by ax
-lungs2 = interpolation.shift(lungs2, (60, -300), mode="nearest")#Shift 2nd image realtive on its own axes. 2nd argument (change in y, change in x)
+lungs2 = interpolation.shift(lungs2, (1, 2), mode="nearest")#Shift 2nd image realtive on its own axes. 2nd argument (change in y, change in x)
 floating.set_data(lungs2) #Update the shifted position of 2nd image in the variable floating
 plt.show()
 
@@ -54,6 +54,7 @@ def shiftImage(shifts):
 shiftImage((-70, 250))
 """
 ####Attempt 2
+
 def shiftImage(shifts):
     global lungs2 #what does global do?
     fig = plt.figure()
@@ -65,4 +66,10 @@ def shiftImage(shifts):
     fig.canvas.draw() #what does this function do?
     return
 
-shiftImage((-70, 250))
+shiftImage((10, 20))
+
+"""
+If the image is first moved outside frame - the results of the function will look like a smear as any
+part of the image outside the frame gets lost and the interpolator gets confused
+
+"""
