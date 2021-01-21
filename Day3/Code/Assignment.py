@@ -19,13 +19,14 @@ os.chdir(newPath)
 
 f, (ax1, ax2) = plt.subplots(2,1)
 #returns f for figure and ax1 and ax2 are the 2 axes
-lungImage = imread('lungs.jpg')
+lungImage = np.mean(imread('lungs.jpg'), -1)
 
 ax1.imshow(lungImage)
 ax1.title.set_text("Lung")
 #Shows lungs on first axes
-lungData = np.mean(lungImage, -1)
-ax2.hist(lungData[lungData>1].flatten(), bins = 255)
+#Convert image data into greys represented 0-255
+lungData = lungImage.flatten()
+ax2.hist(lungData[lungData>1], bins = 255)
 #histogram, needs to be >1 to not count the black background
 #because the scale is too large and cant read hist if include black
 ax2.title.set_text("Histogram")
@@ -40,16 +41,15 @@ def windowLevel(window, level):
     '''want to find all values in lungImage that are less than
     the minimum and set them to 0. Then all the values greater than
     max and set those to 254'''
-    minValues = lungImage < minRange
-    maxValues = lungImage > maxRange
-    lungImage[minValues] = 0
-    lungImage[maxValues] = 254
-    print(lungImage.max())
-    print(minRange, maxRange)
-    plt.imshow(lungImage)
+    #minValues = lungImage < minRange
+    #maxValues = lungImage > maxRange
+    #lungImage[minValues] = 0
+    #lungImage[maxValues] = 254
+    plt.imshow(lungImage, vmin = minRange, vmax= maxRange)
     plt.show()
-    """We tried to use the vmin and vmax arguments for imshow but couldnt get it to work so we
-    have our own workaround"""
+    """vmin is used to for the min of the window and vmax is the max of the window and then this
+    calculates the intensity of those in the range. Those above vmax are set to 255 and those below
+    vmin are set to 0"""
 
 """Trying windowLevel(10,125) shows us that the  second largest peak in the 
 histogram is the liver the intercostal muscles, the shoulder and back muscles. The
