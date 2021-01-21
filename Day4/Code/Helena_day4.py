@@ -55,4 +55,22 @@ ax.imshow(patientImage1.pixel_array, cmap='Purples_r')#pixel_array is the image
 ax.imshow(shifted_image, alpha=0.5, cmap='Greens_r')#pixel_array is the image, alpha makes transparent
 plt.show()
 
+#Define cost function
+def fcn(fixed, floating):
+    return  np.mean((fixed - floating)**2)
+
+#Test the function - check that giving it 2 of the same image gives a result of 0
+cost = fcn(patientImage1.pixel_array, patientImage1.pixel_array)
+print(cost)
+
+#Try to define a register images function
+def register(shift, fixed, floating):
+    shifted_image = shiftImage(shift, floating)
+    cost = fcn(fixed, shifted_image)
+    #print(cost)
+    return cost
+
+cost1 = register((0, 0), patientImage1.pixel_array, patientImage2.pixel_array)
+
+
 
