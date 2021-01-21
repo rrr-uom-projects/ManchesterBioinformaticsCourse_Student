@@ -60,4 +60,16 @@ def fcn(fixed, floating):
 cost = fcn(patientImage1.pixel_array, patientImage1.pixel_array)
 print(cost)
 
+#Try to define a register images function
+def register(shift, fixed, floating):
+    shifted_image = shiftImage(shift, floating)
+    cost = fcn(fixed, shifted_image)
+    #print(cost)
+    return cost
+
+cost1 = register((0, 0), patientImage1.pixel_array, patientImage2.pixel_array)
+
+
+
+
 
