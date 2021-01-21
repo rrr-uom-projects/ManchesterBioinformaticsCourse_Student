@@ -174,5 +174,5 @@ def main():
     #{'x': -4, 'y': -31, 'rotation': -3} which is very similar to result from before
 
 if __name__ == "__main__":
-# To allow main function to run
+    # To allow main function to run
     main()

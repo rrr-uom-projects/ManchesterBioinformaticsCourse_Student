@@ -10,9 +10,9 @@ Date: 20/01/2021
 Title: Image processing in Python Part 1
 
 """
+# Import packages
 import matplotlib.pyplot as plt
 import numpy as np
-
 from skimage.io import imread
 
 
@@ -30,7 +30,6 @@ def main():
     # Higher intensity shows bones, middle shows soft tissue,
     # with a difference between muscle and organ. The zero values 
     # show air. 
-    
     plt.show()
     plt.close()
     
