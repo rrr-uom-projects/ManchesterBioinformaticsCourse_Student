@@ -20,6 +20,7 @@ from scipy import ndimage
 from scipy.ndimage import interpolation, rotate
 from scipy.optimize import brute, differential_evolution
 import pydicom
+import matplotlib.patches as patches
 
 def shift_image(vector, image, rotation=0):
     '''
@@ -39,12 +40,7 @@ def shift_image(vector, image, rotation=0):
     translated_image = ndimage.rotate(image, rotation, reshape=False) # rotates the image
     rotated_image    = interpolation.shift(translated_image, (vector[0], vector[1]), mode="nearest") # translates the image in the x and y axis
 
-    
     return rotated_image
-
-#load registrations array:
-registrations = np.load('registrations.npy')
-print(registrations)
 
 #load images
 floating_list = []
@@ -54,24 +50,29 @@ for file in image_files:
     if file.endswith('.dcm'):
         floating_list.append(pydicom.read_file(file).pixel_array)
 
-#creates ampty figure plot for 4 images
-fig = plt.figure()
-ax = fig.add_subplot(221)
-ax2 = fig.add_subplot(222)
-ax3 = fig.add_subplot(223)
-ax4 = fig.add_subplot(224)
+#load registrations array:
+registrations = np.load('registrations.npy')
+print(registrations)
 
-#adds images to figure plot
-cax = ax.imshow(floating_list[0], cmap="Greys_r")
-cax2 = ax2.imshow(floating_list[1], cmap="afmhot")
-cax3 = ax3.imshow(floating_list[2], cmap="Reds")
-cax4 = ax4.imshow(floating_list[3], cmap="cool")
-plt.show() #displays all four images, showing tumour regression
-plt.close()
+# #creates ampty figure plot for 4 images
+# fig = plt.figure()
+# ax = fig.add_subplot(221)
+# ax2 = fig.add_subplot(222)
+# ax3 = fig.add_subplot(223)
+# ax4 = fig.add_subplot(224)
+
+# #adds images to figure plot
+# cax = ax.imshow(floating_list[0], cmap="Greys_r")
+# cax2 = ax2.imshow(floating_list[1], cmap="afmhot")
+# cax3 = ax3.imshow(floating_list[2], cmap="Reds")
+# cax4 = ax4.imshow(floating_list[3], cmap="cool")
+# plt.show() #displays all four images, showing tumour regression
+# plt.close(fig)
 
 #shift images so they all line up correctly
 shifted_images = []
-for i in range(len(floating_list) -1):
+for i in range(len(floating_list)):
+    print(i)
     shifted = shift_image(registrations[i], floating_list[i])
     shifted_images.append(shifted)
 print(shifted_images)
@@ -82,16 +83,12 @@ ax2 = fig.add_subplot(222)
 ax3 = fig.add_subplot(223)
 ax4 = fig.add_subplot(224)
 
-#adds images to figure plot
+# adds images to figure plot
 cax = ax.imshow(shifted_images[0], cmap="Greys_r")
 cax2 = ax2.imshow(shifted_images[1], cmap="afmhot")
-#cax3 = ax3.imshow(shifted_images[2], cmap="Reds")
-#cax4 = ax4.imshow(shifted_images[3], cmap="cool")
+cax3 = ax3.imshow(shifted_images[2], cmap="Reds")
+cax4 = ax4.imshow(shifted_images[3], cmap="cool")
 plt.show() #displays all four images, showing tumour regression
-plt.close()
-
-# Import the bit of matplotlib that can draw rectangles
-import matplotlib.patches as patches
 
 #create another figure, that only shows the first image
 fig2 = plt.figure(2)
@@ -224,13 +221,13 @@ ax4 = fig4.add_subplot(224)
 list_of_tumour_close_ups = []
 
 #for loop cropping each image to just show the region of interest (the tumour area)
-for i in range(len(shifted_images)-1):
+for i in range(len(shifted_images)):
     cropped = shifted_images[i][indices[0]:indices[1], indices[2]:indices[3]]
     list_of_tumour_close_ups.append(cropped)
 
 #adds close up tumour region images to empty figure plot
 cax = ax.imshow(list_of_tumour_close_ups[0], cmap="Greys_r")
 cax2 = ax2.imshow(list_of_tumour_close_ups[1], cmap="afmhot")
-#cax3 = ax3.imshow(list_of_tumour_close_ups[2], cmap="Reds")
-#cax4 = ax4.imshow(list_of_tumour_close_ups[3], cmap="cool")
+cax3 = ax3.imshow(list_of_tumour_close_ups[2], cmap="Reds")
+cax4 = ax4.imshow(list_of_tumour_close_ups[3], cmap="cool")
 plt.show() #shows the plot

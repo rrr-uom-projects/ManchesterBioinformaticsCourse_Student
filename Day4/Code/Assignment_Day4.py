@@ -105,10 +105,14 @@ for file in image_files:
         floating_list.append(pydicom.read_file(file).pixel_array)
 
 registrations = []
-for floating in floating_list:
-    registering_shift = brute(registerImages, ((-100, 100),(-100, 100)), args=(floating_list[0], floating))
-    registrations.append(registering_shift)
+for i in range(len(floating_list)):
+    if i == 0: 
+        registrations.append([0,0])
+    else :
+        registering_shift = brute(registerImages, ((-100, 100),(-100, 100)), args=(floating_list[0], floating_list[i]))
+        registrations.append(registering_shift)
 
+print(registrations)
 registrations_arr = np.array(registrations) 
 np.save('registrations.npy', registrations_arr)
 
