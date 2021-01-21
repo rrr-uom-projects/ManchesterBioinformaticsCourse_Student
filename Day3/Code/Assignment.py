@@ -53,6 +53,6 @@ def lindow (level, window):
 lindow(5,10) # lindow function for most right hand side peak between 5 and 10 is likely air/background
 lindow(60,20) # lindow function for the second most peak likely soft tissue/organs
 lindow(120,60) #Muscles organs
+lindow(200, 100) #dense organs(?) and bone?
 lindow(252, 4) #spots of bone or calcification?
-lindow(200, 100) #organs what are dense? and bone?
 # %%
