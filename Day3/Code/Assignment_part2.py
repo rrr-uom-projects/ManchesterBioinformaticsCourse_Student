@@ -41,3 +41,28 @@ plt.show()
 
 #You can change the position of the second image by inputting different x and y values into interpolation.shift function. 
 #Its not very interactive, but hey, its a start.
+
+####Attempts at shift image function - not working
+"""
+def shiftImage(shifts):
+    global lungs2 #what does global do?
+    interpolation.shift(lungs2, shifts, mode="nearest")
+    floating.set_data(lungs2)
+    fig.canvas.draw() #what does this function do?
+    return
+
+shiftImage((-70, 250))
+"""
+####Attempt 2
+def shiftImage(shifts):
+    global lungs2 #what does global do?
+    fig = plt.figure()
+    ax = fig.add_subplot(111) #Create a 1x1 grid of subplots, with ax specifying position 1
+    ax.imshow(lungs1, cmap="Purples_r") #Plonks 1st image in space designated by ax
+    floating = ax.imshow(lungs2, alpha=0.5, cmap="Greens_r")#Specify a variable which plonks 2nd image in space designated by ax
+    lungs2 = interpolation.shift(lungs2, shifts, mode="nearest")#Shift 2nd image realtive on its own axes. 2nd argument (change in y, change in x)
+    floating.set_data(lungs2)
+    fig.canvas.draw() #what does this function do?
+    return
+
+shiftImage((-70, 250))
