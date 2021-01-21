@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+Created on Thurs Jan 21 16:02:32 2021
+Authors: Nermeen and Helena
+Title: This is Part 2 of Day 4. 
+Description: Displaying the registered images.
+"""
 import numpy as np #this library deals with the image as an array of numbers
 import matplotlib.pyplot as plt #this is used to plot the figures
 #from skimage import io #this is used for image processing
@@ -8,7 +14,7 @@ from scipy.ndimage import interpolation
 #from scipy.optimize import brute
 import pydicom
 #To make the images bigger in size
-#plt.rcParams['figure.figsize'] = (16.0, 12.0)
+plt.rcParams['figure.figsize'] = (16.0, 12.0)
 
 #Load the images
 patientImage1 = pydicom.read_file("IMG-0004-00001.dcm")
