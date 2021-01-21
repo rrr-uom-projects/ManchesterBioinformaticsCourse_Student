@@ -87,6 +87,49 @@ ax.imshow(patientImage1.pixel_array, cmap='Purples_r')#pixel_array is the image
 ax.imshow(optimum_shifted_image_position, alpha=0.5, cmap='Greens_r')#pixel_array is the image, alpha makes transparent
 plt.show()
 
+print("Done with the first bit")
 
+##### Trying to register all images to the first####
+
+#Load remaining 2 DICOM objects
+patientImage3 = pydicom.read_file("IMG-0004-00003.dcm")
+patientImage4 = pydicom.read_file("IMG-0004-00004.dcm")
+
+#Give the pixel_arrays sensible variable names
+fixed = patientImage1.pixel_array
+floating2 = patientImage2.pixel_array
+floating3 = patientImage3.pixel_array
+floating4 = patientImage4.pixel_array
+
+#Put the pixel arrays in a list
+floating_list = [floating2, floating3, floating4]
+
+#Loop over the images appending their optimal shift to a list of registrations
+registrations = []
+for floating in floating_list:
+    registering_shift = brute(register, ((-100, 100), (-100,100)), args=(fixed, floating))
+    registrations.append(registering_shift)
+    
+print(registrations)
+print(registrations[1])
+
+print("Done the next bit")
+
+#Apply the registrations to the images and stick the shifted images in a list
+shifted_images = []
+i=0
+for image in floating_list:
+    new_position = shiftImage((registrations[i]), image)
+    shifted_images.append(new_position)
+    i += 1
+    
+print(shifted_images)  
+print("Done")    
+ 
+#Create a numpy array out of the registrations and save it
+registrations_arr = np.array(registrations)
+np.save("registrations.npy", registrations_arr)
+    
+#########Go to the next script!!!##########
 
 
