@@ -219,15 +219,24 @@ ax3 = fig4.add_subplot(223)
 ax4 = fig4.add_subplot(224)
 
 list_of_tumour_close_ups = []
+mean_image_val = []
 
 #for loop cropping each image to just show the region of interest (the tumour area)
 for i in range(len(shifted_images)):
     cropped = shifted_images[i][indices[0]:indices[1], indices[2]:indices[3]]
     list_of_tumour_close_ups.append(cropped)
+    mean_image_val.append(np.mean(cropped))
 
 #adds close up tumour region images to empty figure plot
 cax = ax.imshow(list_of_tumour_close_ups[0], cmap="Greys_r")
-cax2 = ax2.imshow(list_of_tumour_close_ups[1], cmap="afmhot")
-cax3 = ax3.imshow(list_of_tumour_close_ups[2], cmap="Reds")
-cax4 = ax4.imshow(list_of_tumour_close_ups[3], cmap="cool")
+cax2 = ax2.imshow(list_of_tumour_close_ups[1], cmap="Greys_r")
+cax3 = ax3.imshow(list_of_tumour_close_ups[2], cmap="Greys_r")
+cax4 = ax4.imshow(list_of_tumour_close_ups[3], cmap="Greys_r")
+
+axis_label = [ax, ax2, ax3, ax4]
+
+for i in range(len(axis_label)) :
+    axis_label[i].set_title('Close up of tumour region ' + str(i) + '\nMean value:' + str(mean_image_val[i]))
+
+
 plt.show() #shows the plot
