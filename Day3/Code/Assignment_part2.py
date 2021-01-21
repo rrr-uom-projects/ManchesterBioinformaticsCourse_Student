@@ -146,6 +146,9 @@ def eventHandler(event):
     elif whichKey == "escape":
         plt.close('all')
 
+    print('Translated ', (down - left) * shifting_interval, 'pixels on the horizontal axis \nTranslated ', (right - left) * shifting_interval, 'pixels on the vertical axis \nRotated ', ((anti - clock) * rotation_degree + 360)%360, 'degrees clockwise')
+
+
 # -------------------------------------------------------------------------------------------
 fig.canvas.mpl_connect("key_press_event", eventHandler)
 plt.show()
