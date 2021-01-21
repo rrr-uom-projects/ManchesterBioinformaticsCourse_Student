@@ -58,7 +58,6 @@ plt.show()
 
 
 
-
 Comments are not optional
 """
 ### Name: Jadene Lewis
@@ -87,7 +86,7 @@ os.chdir("C:/Users/jaden/bioinformatics-course/code/ManchesterBioinformaticsCour
 #To make images bigger than default size
 plt.rcParams['figure.figsize'] = (16.0, 12.0)
 
-##Switch to appropriate 
+##Switch to appropriate directory
 os.getcwd()
 os.chdir("C:/Users/jaden/bioinformatics-course/code/ManchesterBioinformaticsCourse_Student/Day3/Code")
 os.getcwd()
@@ -108,20 +107,6 @@ data = np.mean(lungs_image,-1)
 plt.hist(data[data >1].flatten(), bins = 254)
 plt.show()
 
-#### to delete ######
-lung_im = io.imread("lungs.jpg",as_gray=True)
-fig = plt.figure()
-ax = fig.add_subplot(211)
-ax2 = fig.add_subplot(212)
-ax.imshow(lung_im, interpolation="none", cmap="Greys_r", vmin=0.5, vmax=0.8)
-ax2.hist(lung_im.flatten(),bins=255,facecolor="Red",edgecolor="Black") #histogram of image. im.flatten squishes the image- IMPORTANT!
-plt.show() #HISTOGRAM MATCHES IMAGE more or less
-
-vals = lungs_image.mean(axis=2).flatten() #calculate mean value from RGB channel
-b, bins, patches = plt.hist(vals, 255)
-plt.xlim([0,255])
-plt.show()
-#########################
 
 
 #Function that displays CT image at different window levels        
@@ -147,7 +132,16 @@ plt.show()
 #Record info as comments in your code:
     #Parts of the histogram with higher peaks refer to those less dense regions such as soft tissue (as there is less X-ray attenuation). 
     #Parts of histogram with lower peaks refer to those increased density regions such as bone as there is higher X-ray attenuation
-    
+
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan 20 21:17:41 2021
+
+@author: jaden
+"""
+### Name: Jadene Lewis
+### Date: 20/01/21
+### Title: Image Processing in Python
 
 # Part 2 #
 import numpy as np
@@ -157,18 +151,21 @@ import matplotlib.pyplot as plt
 from scipy.ndimage import interpolation, rotate
 
 # Load and display images 'lungs.jpg' and 'lung2.jpg'
-lungs2_image = io.imread("lungs.jpg")
+lungs2_image = skimage.io.imread("lungs.jpg", as_gray=True)
 plt.imshow(lungs2_image)
 
-lungs_image = io.imread("lungs.jpg")
+lungs_image = skimage.io.imread("lungs.jpg", as_gray=True)
 plt.imshow(lungs_image)
 
 # Make a plot where you can see both images on the same plot using transparency
-#plt.figure()
-floating_image = io.imread("lungs2.jpg") #moving image
-background_image = io.imread("lungs.jpg")
-plt.imshow(lungs_image, cmap="Greys_r") #puts 'lungs.jpg' in background
-plt.imshow(floating_image, alpha=0.0, cmap="Greys_r") #puts 'lungs2.jpg' in front and alpha=0.5 makes for partial transparency. increase or decrease alpha value to make front image less or more see through, respectively
+floating_image = skimage.io.imread("lungs2.jpg", as_gray=True) #moving image
+background_image = skimage.io.imread("lungs.jpg", as_gray=True) #fixed image
+
+fig = plt.figure()
+plt.title('Lung 1 and Lung 2 overlayed')
+ax = fig.add_subplot(111)
+background = ax.imshow(background_image, cmap="Greys_r") #puts 'lungs.jpg' in background
+floating = ax.imshow(floating_image, alpha=0.5, cmap="Greys_r") #puts 'lungs2.jpg' in front and alpha=0.5 makes for partial transparency. increase or decrease alpha value to make front image less or more see through, respectively
 #plt.imshow(interpolation.shift(floating_image, (10, 20, 0))) #Because RGB image so has three dimensions and thus shifting parameter requires 3 values
 plt.show()
 
@@ -187,9 +184,23 @@ plt.show()
 #plt.show()
 
 ##Write a function that would shift floating image
-def shiftImage(x, y, image = floating_image):
+def shiftImage(x, y):
     global floating_image
-    plt.imshow(interpolation.shift(floating_image, (y, x, 0), mode = "nearest"))
-    return plt.show(floating_image)
+    #global background
+    #fig = plt.figure()
+    #ax = fig.add_subplot(111)
+    #ax.imshow(background)
+    #plt.imshow(background_image,)
+    #fig, ax = plt.subplots()
+    floating_image = interpolation.shift(floating_image, (y, x), mode = "nearest")
+    floating.set_data(floating_image)
+    fig.canvas.draw() #draws update to canvas
+    #return plt.imshow(floating_image)
+    #plt.show()
+    #image not showing?
+    #return floating_image
+    #return plt.show(floating_image)
 
-shiftImage(40, 30)
+shiftImage(10, 20)
+
+
