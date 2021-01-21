@@ -89,6 +89,7 @@ cax2 = ax2.imshow(shifted_images[1], cmap="afmhot")
 cax3 = ax3.imshow(shifted_images[2], cmap="Reds")
 cax4 = ax4.imshow(shifted_images[3], cmap="cool")
 plt.show() #displays all four images, showing tumour regression
+plt.close() 
 
 #create another figure, that only shows the first image
 fig2 = plt.figure(2)
@@ -236,7 +237,7 @@ cax4 = ax4.imshow(list_of_tumour_close_ups[3], cmap="Greys_r")
 axis_label = [ax, ax2, ax3, ax4]
 
 for i in range(len(axis_label)) :
-    axis_label[i].set_title('Close up of tumour region ' + str(i) + '\nMean value:' + str(mean_image_val[i]))
+    axis_label[i].set_title(f"Close up of tumour region image {i+1}\nMean value:' {mean_image_val[i]:.3f}",fontsize=9)
 
 
 plt.show() #shows the plot
