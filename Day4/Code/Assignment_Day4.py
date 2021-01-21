@@ -24,36 +24,14 @@ import matplotlib.patches as patches
 
 #load the images
 patient_image_1  = pydicom.read_file("IMG-0004-00001.dcm").pixel_array
-# patient_image_1 = np.mean(im1.pixel_array, -1)
 patient_image_2  = pydicom.read_file("IMG-0004-00002.dcm").pixel_array
-# patient_image_2 = np.mean(im2.pixel_array, -1)
 
-# print(patient_image_1)
-# print(patient_image_2)
 
-# #display image 2 overlaid onto image 1 with transparency
-# fig2 = plt.figure()
-# ax = fig2.add_subplot(111)
-# ax.imshow(im1.pixel_array, cmap='Greys_r')
-# ax.imshow(im2.pixel_array, alpha=0.3, cmap='Greys_r')
-# plt.title('Images 1 and 2 overlaid')
-# plt.show()
-# plt.savefig('images_1_and_2_overlaid.png') #saves the figure as a .png file
-
-# #create figure space:
-# fig = plt.figure()                      # create figure
-# ax = fig.add_subplot(111)               # set the axes
-# plt.title('Images overlaid')
-
-# #shift image function:
-
-fig = plt.figure()                       # create figure
-ax = fig.add_subplot(111)               # set the axes
+fig = plt.figure()                                # create figure
+ax = fig.add_subplot(111)                         # set the axes
 ax.imshow(patient_image_1, cmap="Greys_r")        # put fixed image into the background of the figure
 
-# floating = ax.imshow(lungs3, alpha=0.3) # Add a second image onto the figure space
 
-plt.show()
 
 def shift_image(vector, image, rotation=0):
     '''
@@ -76,5 +54,7 @@ def shift_image(vector, image, rotation=0):
     
     return rotated_image
 
-# print(shift_image([20, 20], patient_image_1 , -5))
+# Added a function to shift DICOM image
+floating = ax.imshow((shift_image([20, 20], patient_image_1 , -5)), alpha=0.3)
+plt.show()
 
