@@ -35,7 +35,7 @@ patientImage2 = pydicom.read_file("IMG-0004-00002.dcm")
 
 #get the pixel data from the dicom file as a numpy array using img1_array = img1_dcm.pixel_array
 img1_array = patientImage.pixel_array 
-img2_array = patientImage.pixel_array
+img2_array = patientImage2.pixel_array
 #print(img1_array)
 #print(img2_array)
 
@@ -48,7 +48,7 @@ ax.imshow(img1_array, cmap="Greens_r")  #designates the static image on the plot
 shifted = shiftimage(img2_array, [0,0,0])
 
 floating = ax.imshow(shifted, cmap="Purples_r", alpha = 0.5) # and designates the floating image, alpha shows transparency level
-#plt.savefig('Patient Image overlay (step5).png') #Saves original image
+plt.savefig('Patient Image overlay (step5).png') #Saves original image
 plt.show() #Shows plot
 
 
