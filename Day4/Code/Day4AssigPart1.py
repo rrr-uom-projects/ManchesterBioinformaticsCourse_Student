@@ -69,7 +69,6 @@ print("The optimum shift is {}".format(registeringShift))
 #registering_shift_shgo = scipy.optimize.shgo(registerImages, ((-100,100),(-100,100)), args = (img1Array, img2Array))
 #print("The optimum shift is {}".format(registering_shift_shgo))
 
-
 img2Array = shiftImage(registeringShift, img2Array)
 floating.set_data(img2Array)
 fig.canvas.draw()
