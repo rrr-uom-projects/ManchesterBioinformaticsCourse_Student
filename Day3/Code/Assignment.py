@@ -183,6 +183,7 @@ plt.show()
 #plt.imshow(translated_img)
 #plt.show()
 
+
 ##Write a function that would shift floating image
 def shiftImage(x, y):
     global floating_image
@@ -192,8 +193,8 @@ def shiftImage(x, y):
     #ax.imshow(background)
     #plt.imshow(background_image,)
     #fig, ax = plt.subplots()
-    floating_image = interpolation.shift(floating_image, (y, x), mode = "nearest")
-    floating.set_data(floating_image)
+    floating_image_shift = interpolation.shift(floating_image, (y, x), mode = "nearest")
+    floating.set_data(floating_image_shift)
     fig.canvas.draw() #draws update to canvas
     #return plt.imshow(floating_image)
     #plt.show()
@@ -201,6 +202,18 @@ def shiftImage(x, y):
     #return floating_image
     #return plt.show(floating_image)
 
-shiftImage(10, 20)
+shiftImage(20, 10) #what does this do?
+shiftImage(50, 40)
 
+#Modify previous function to include rotation
 
+#Shifting image using keyboard presses
+def shiftImage(x, y, r):
+    global floating_image
+    floating_image_shift = interpolation.shift(floating_image, (y, x), mode = "nearest")
+    floating_image_rotated = scipy.ndimage.rotate(floating_image, r, reshape=True)
+    floating.set_data(floating_image_shift, floating_image_rotated)
+    fig.canvas.draw()
+
+import pydicom #not working
+help(scipy.ndimage.rotate)
