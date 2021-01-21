@@ -47,6 +47,14 @@ patient_image_2  = pydicom.read_file("IMG-0004-00002.dcm").pixel_array
 
 # #shift image function:
 
+fig = plt.figure()                       # create figure
+ax = fig.add_subplot(111)               # set the axes
+ax.imshow(patient_image_1, cmap="Greys_r")        # put fixed image into the background of the figure
+
+# floating = ax.imshow(lungs3, alpha=0.3) # Add a second image onto the figure space
+
+plt.show()
+
 def shift_image(vector, image, rotation=0):
     '''
     Function to translate and rotate second image and overlay it on the figure space 
@@ -68,5 +76,5 @@ def shift_image(vector, image, rotation=0):
     
     return rotated_image
 
-print(shift_image([20, 20], patient_image_1 , -5))
+# print(shift_image([20, 20], patient_image_1 , -5))
 
