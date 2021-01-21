@@ -75,6 +75,18 @@ floating = patientImage2.pixel_array
 registering_shift = brute(register, ((-100, 100), (-100,100)), args=(fixed, floating))
 
 print(registering_shift)
+##This gave an optimal shift of [  2.99566717 -25.00354501]
+
+#Shift the image to the position identified by the optimiser
+optimum_shifted_image_position = shiftImage((2.99566717, -25.00354501), floating)
+
+#Plot the image in the position identified by the optimiser
+fig2 = plt.figure()
+ax = fig2.add_subplot(111)
+ax.imshow(patientImage1.pixel_array, cmap='Purples_r')#pixel_array is the image
+ax.imshow(optimum_shifted_image_position, alpha=0.5, cmap='Greens_r')#pixel_array is the image, alpha makes transparent
+plt.show()
+
 
 
 
