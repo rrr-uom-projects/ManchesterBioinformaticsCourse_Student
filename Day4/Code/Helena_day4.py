@@ -54,3 +54,5 @@ ax = fig2.add_subplot(111)
 ax.imshow(patientImage1.pixel_array, cmap='Purples_r')#pixel_array is the image
 ax.imshow(shifted_image, alpha=0.5, cmap='Greens_r')#pixel_array is the image, alpha makes transparent
 plt.show()
+
+

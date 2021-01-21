@@ -52,3 +52,12 @@ ax.imshow(patientImage1.pixel_array, cmap='Purples_r')#pixel_array is the image
 ax.imshow(shifted_image, alpha=0.5, cmap='Greens_r')#pixel_array is the image, alpha makes transparent
 plt.show()
 
+#Define cost function
+def fcn(fixed, floating):
+    return  np.mean((fixed - floating)**2)
+
+#Test the function - check that giving it 2 of the same image gives a result of 0
+cost = fcn(patientImage1.pixel_array, patientImage1.pixel_array)
+print(cost)
+
+
