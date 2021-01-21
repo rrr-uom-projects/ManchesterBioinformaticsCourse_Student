@@ -26,15 +26,15 @@ plt.show()
 
 #Display both images on the same axes in different colors, with the second
 #image made transparent using the alpha argument
-plt.imshow(lungs1, cmap="Blues_r")
-plt.imshow(lungs2, alpha=0.5, cmap="Reds_r")
+plt.imshow(lungs1, cmap="Purples_r")
+plt.imshow(lungs2, alpha=0.5, cmap="Greens_r")
 plt.show()
 
 #Move the 2nd image relative to the 1st.
 fig = plt.figure()
 ax = fig.add_subplot(111) #Create a 1x1 grid of subplots, with ax specifying position 1
-ax.imshow(lungs1, cmap="Greys_r") #Plonks 1st image in space designated by ax
-floating = ax.imshow(lungs2, alpha=0.5, cmap="Reds_r")#Specify a variable which plonks 2nd image in space designated by ax
+ax.imshow(lungs1, cmap="Purples_r") #Plonks 1st image in space designated by ax
+floating = ax.imshow(lungs2, alpha=0.5, cmap="Greens_r")#Specify a variable which plonks 2nd image in space designated by ax
 lungs2 = interpolation.shift(lungs2, (60, -300), mode="nearest")#Shift 2nd image realtive on its own axes. 2nd argument (change in y, change in x)
 floating.set_data(lungs2) #Update the shifted position of 2nd image in the variable floating
 plt.show()
