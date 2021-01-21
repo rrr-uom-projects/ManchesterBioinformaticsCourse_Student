@@ -61,7 +61,7 @@ def shiftRotateImage(shifts, rotation):
     floating3.set_data(lungImage3)
     figLung3.canvas.draw()
 
-shiftRotateImage([0, -30], -3)
+#shiftRotateImage([0, -30], -3)
 #This now shows the both the lung2 overlaid lung1 and lung 3 overlaid lung1
 
 """Q14 Moves it down by 10 (because the y axis is flipped), and to the right by 20
@@ -70,7 +70,7 @@ Q16 We have added rotation and -3, [0,-30] is about right.
 """
 """This function takes a user input and alters the image: up, left, right and down translate
 the image in that respective direction, enter is a clockwise rotation and backspace is reverse"""
-"""decalre down , right and anticlockwise outside of function as zero. The function can then track
+"""Declare down , right and anticlockwise outside of function as zero. The function can then track
 the changes its makes, by declaring them within the function as global variables. If not then it
 would reset them to 0 every new event"""
 d = 0
@@ -105,3 +105,6 @@ def eventHandler(event):
 figLung3.canvas.mpl_connect("key_press_event", eventHandler)
 plt.show()
 
+""" We have managed to manually register lung3 and lung1 but we ran out
+of time to allow for lung2 as well. We think it would be the same as lung 3
+but play with the figures. We tried but it broke the code."""
