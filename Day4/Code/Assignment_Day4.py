@@ -69,7 +69,12 @@ def register(shift, fixed, floating):
 
 cost1 = register((0, 0), patientImage1.pixel_array, patientImage2.pixel_array)
 
+#Automate registering of images
+fixed = patientImage1.pixel_array
+floating = patientImage2.pixel_array
+registering_shift = brute(register, ((-100, 100), (-100,100)), args=(fixed, floating))
 
+print(registering_shift)
 
 
 
