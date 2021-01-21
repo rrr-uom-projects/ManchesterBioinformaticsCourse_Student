@@ -85,9 +85,9 @@ def shift_image(vertical, horizontal, rotation=0):
                 null
     '''
     global lungs3
-    
-    translated_image = interpolation.shift(lungs3, (vertical, horizontal), mode="nearest") # translates the image in the x and y axis
-    lungs3 = ndimage.rotate(translated_image, rotation, reshape=False) # rotates the image
+
+    translated_image = ndimage.rotate(lungs3, rotation, reshape=False) # rotates the image
+    lungs3           = interpolation.shift(translated_image, (vertical, horizontal), mode="nearest") # translates the image in the x and y axis
 
     floating.set_data(lungs3)
     fig.canvas.draw()
