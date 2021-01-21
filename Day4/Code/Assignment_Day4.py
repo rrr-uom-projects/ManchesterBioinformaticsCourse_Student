@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+Created on Thurs Jan 21 16:02:32 2021
+Authors: Nermeen and Helena
+Title: This is Part 1 of Day 4. 
+Description: In this task we create a function to register images automatically.
+"""
+
 import numpy as np #this library deals with the image as an array of numbers
 import matplotlib.pyplot as plt #this is used to plot the figures
 from skimage import io #this is used for image processing
@@ -10,34 +17,28 @@ import pydicom
 #To make the images bigger in size
 plt.rcParams['figure.figsize'] = (16.0, 12.0)
 
-#Load images into variables
+#Load DICOM objects into variables
 patientImage1 = pydicom.read_file("IMG-0004-00001.dcm")
-#patientImage1 =pydicom.dcmread("IMG-0004-00001.dcm").pixel_array
-#plt.imshow(patientImage1)
-#plt.show()
-
 patientImage2 = pydicom.read_file("IMG-0004-00002.dcm")
-#patientImage2 =pydicom.dcmread("IMG-0004-00002.dcm").pixel_array
-#plt.imshow(patientImage2)
-#plt.show()
 
-#img1=pydicom.dcmread("IMG-0004-00001.dcm").pixel_array
-#plt.imshow(img1)
+#patientImage1 =pydicom.dcmread("IMG-0004-00001.dcm").pixel_array #This would load just the pixel_array into the variable
+#plt.imshow(patientImage1)
 #plt.show()
 
 print(patientImage1)#Prints the DICOM header information in the console
 
 #Plot both figures ontop of one another
-fig2 = plt.figure()
-ax = fig2.add_subplot(111)
+fig1 = plt.figure()
+ax = fig1.add_subplot(111)
 ax.imshow(patientImage1.pixel_array, cmap='Purples_r')#pixel_array is the image
 ax.imshow(patientImage2.pixel_array, alpha=0.5, cmap='Greens_r')#pixel_array is the image, alpha makes transparent
 plt.show()
 
 #Save this image as a png
-fig2.savefig("unregistered.png") #matlibplot save function
+fig1.savefig("unregistered.png") #matlibplot save function
 #######
 
+#Define a function to shift and interpolate the image
 def shiftImage(shifts, image):
     shifted_image = interpolation.shift(image, shifts, mode="nearest")#Shift 2nd image realtive on its own axes. 2nd argument (change in y, change in x)
     return shifted_image
@@ -52,13 +53,16 @@ ax.imshow(patientImage1.pixel_array, cmap='Purples_r')#pixel_array is the image
 ax.imshow(shifted_image, alpha=0.5, cmap='Greens_r')#pixel_array is the image, alpha makes transparent
 plt.show()
 
+#Save this image as a png
+fig2.savefig("manual_register.png") #matlibplot save function
+
 #Define cost function
 def fcn(fixed, floating):
-    return  np.mean((fixed - floating)**2)
+    return  np.mean((fixed - floating)**2)#Calculates the difference between the images - the lower the cost, the better the alignment
 
 #Test the function - check that giving it 2 of the same image gives a result of 0
 cost = fcn(patientImage1.pixel_array, patientImage1.pixel_array)
-print(cost)
+print(cost)#Check that the cost is 0 when identical images are input
 
 #Try to define a register images function
 def register(shift, fixed, floating):
@@ -68,6 +72,7 @@ def register(shift, fixed, floating):
     return cost
 
 cost1 = register((0, 0), patientImage1.pixel_array, patientImage2.pixel_array)
+print(cost1)#
 
 #Automate registering of images
 fixed = patientImage1.pixel_array
