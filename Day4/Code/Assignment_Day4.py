@@ -23,28 +23,29 @@ import pydicom
 import matplotlib.patches as patches
 
 #load the images
-im1 = pydicom.read_file("IMG-0004-00001.dcm")
-patient_image_1 = np.mean(im1.pixel_array, -1)
-im2 = pydicom.read_file("IMG-0004-00002.dcm")
-patient_image_2 = np.mean(im2.pixel_array, -1)
+patient_image_1  = pydicom.read_file("IMG-0004-00001.dcm").pixel_array
+# patient_image_1 = np.mean(im1.pixel_array, -1)
+patient_image_2  = pydicom.read_file("IMG-0004-00002.dcm").pixel_array
+# patient_image_2 = np.mean(im2.pixel_array, -1)
+
 # print(patient_image_1)
 # print(patient_image_2)
 
-#display image 2 overlaid onto image 1 with transparency
-fig2 = plt.figure()
-ax = fig2.add_subplot(111)
-ax.imshow(im1.pixel_array, cmap='Greys_r')
-ax.imshow(im2.pixel_array, alpha=0.3, cmap='Greys_r')
-plt.title('Images 1 and 2 overlaid')
-plt.show()
-plt.savefig('images_1_and_2_overlaid.png') #saves the figure as a .png file
+# #display image 2 overlaid onto image 1 with transparency
+# fig2 = plt.figure()
+# ax = fig2.add_subplot(111)
+# ax.imshow(im1.pixel_array, cmap='Greys_r')
+# ax.imshow(im2.pixel_array, alpha=0.3, cmap='Greys_r')
+# plt.title('Images 1 and 2 overlaid')
+# plt.show()
+# plt.savefig('images_1_and_2_overlaid.png') #saves the figure as a .png file
 
-#create figure space:
-fig = plt.figure()                      # create figure
-ax = fig.add_subplot(111)               # set the axes
-plt.title('Images overlaid')
+# #create figure space:
+# fig = plt.figure()                      # create figure
+# ax = fig.add_subplot(111)               # set the axes
+# plt.title('Images overlaid')
 
-#shift image function:
+# #shift image function:
 
 def shift_image(vector, image, rotation=0):
     '''
@@ -60,15 +61,12 @@ def shift_image(vector, image, rotation=0):
     
                 null
     '''
-    ax.imshow(image, cmap="Greys_r") 
-    shifted = ax.imshow(rotated_image, cmap="Greys_r")   
+
     translated_image = ndimage.rotate(image, rotation, reshape=False) # rotates the image
     rotated_image    = interpolation.shift(translated_image, (vector[0], vector[1]), mode="nearest") # translates the image in the x and y axis
 
-    shifted.set_data(rotated_image)
-    fig.canvas.draw()
     
-    print(rotated_image)
+    return rotated_image
 
-shift_image([20, 20], im1.pixel_array, -5)
+print(shift_image([20, 20], patient_image_1 , -5))
 
