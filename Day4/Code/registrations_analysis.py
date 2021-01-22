@@ -85,9 +85,9 @@ ax4 = fig.add_subplot(224)
 
 # adds images to figure plot
 cax = ax.imshow(shifted_images[0], cmap="Greys_r")
-cax2 = ax2.imshow(shifted_images[1], cmap="afmhot")
-cax3 = ax3.imshow(shifted_images[2], cmap="Reds")
-cax4 = ax4.imshow(shifted_images[3], cmap="cool")
+cax2 = ax2.imshow(shifted_images[1], cmap="Greys_r")
+cax3 = ax3.imshow(shifted_images[2], cmap="Greys_r")
+cax4 = ax4.imshow(shifted_images[3], cmap="Greys_r")
 plt.show() #displays all four images, showing tumour regression
 plt.close() 
 
@@ -226,7 +226,7 @@ mean_image_val = []
 for i in range(len(shifted_images)):
     cropped = shifted_images[i][indices[0]:indices[1], indices[2]:indices[3]]
     list_of_tumour_close_ups.append(cropped)
-    mean_image_val.append(np.mean(cropped))
+    mean_image_val.append(np.mean(cropped)) #calculates the pixel intensity i.e. brightness of the roi
 
 #adds close up tumour region images to empty figure plot
 cax = ax.imshow(list_of_tumour_close_ups[0], cmap="Greys_r")
@@ -238,6 +238,5 @@ axis_label = [ax, ax2, ax3, ax4]
 
 for i in range(len(axis_label)) :
     axis_label[i].set_title(f"Close up of tumour region image {i+1}\nMean value:' {mean_image_val[i]:.3f}",fontsize=9)
-
-
 plt.show() #shows the plot
+#the average pixel intensity represents the presence of the tumour - the brighter the pixels, the denser the tumour
