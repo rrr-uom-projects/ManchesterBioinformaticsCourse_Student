@@ -56,7 +56,14 @@ def shiftImage(shifts):
 shiftImage((10, 20))
 
 """
-If the image is first moved outside frame - the results of the function will look like a smear as any
+Note - If the image is first moved outside frame - the results of the function will look like a smear as any
 part of the image outside the frame gets lost and the interpolator gets confused
 
+"""
+
+"""
+The next part of the task was to make the floating image interactive so that the images could be aligned using keyboard presses.
+The figure needed to be connected to the key presses using the fig.canvas.mpl_connect function. 
+The relationship between the keys and the image would need to defined in a separate function - which key represents which desired movement.
+This would be acheived using 'if' statements - 'if up key is pressed move image by x amount'
 """
