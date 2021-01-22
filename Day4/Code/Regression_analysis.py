@@ -1,12 +1,14 @@
 """
-BIOL68310 Assignment: Image processing in Python - Day 2, Part 2
-
-Aim of this part is to register all four lung images and use a key press event to select an area of interest around the tumour to compare tumour regression across the four images.
-
 Authors: Katie Williams and Megan Paynton
 
-Work done on Thursday 21st January 2021
+Work done: Thursday 21st January 2021
+
+BIOL68310 Assignment: Image processing in Python - Day 2, Part 2
+
+Aim: Register all four lung images and use a key press event to select an area of interest around the tumour to compare tumour regression across the four images.
+
 """
+
 # First, import the relevant modules and functions
 import matplotlib.pyplot as plt
 import numpy as np
@@ -174,6 +176,9 @@ plt.show()
 # Identify the indices based off the box of interest you select 
 indices = [int(rect.get_y()), int(rect.get_y() + rect.get_height()), int(rect.get_x()), int(rect.get_x() + rect.get_width())]
 #print(indices) # print indices to view the box of interest, our box of interest is 37, 87, 291, 337 
+
+# NB that for the sake of consistency, we have overriden the Indices output with the result we think is a good field of vision
+# The following line can be commented to allow the interface to determine the indices
 indices = [37, 87, 291, 337]
 roi_1 = img1_array[indices[0]:indices[1], indices[2]:indices[3]] #select area of intrest from fixed image
 roi_2 = shifted_images[0][indices[0]:indices[1], indices[2]:indices[3]] #select area of interest from image 2
