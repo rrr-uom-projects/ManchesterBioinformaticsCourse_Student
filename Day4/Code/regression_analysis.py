@@ -1,3 +1,9 @@
+"""
+Ed and sophie regression analysis.
+
+This is part 2 of the assignment on day 4
+"""
+
 import os
 import matplotlib.pyplot as plt 
 import numpy as np
@@ -21,12 +27,12 @@ newPath = cwd +"\\Day4\\Code"
 #path to folder containing lungs.jpg, this is for windows os, for othe os change to /
 os.chdir(newPath)
 registrations = np.load("registrations.npy")
-#Load in both .dcm images
+#Load in all .dcm images
 img1 = pydicom.read_file("IMG-0004-00001.dcm")
 img2 = pydicom.read_file("IMG-0004-00002.dcm")
 img3 = pydicom.read_file("IMG-0004-00003.dcm")
 img4 = pydicom.read_file("IMG-0004-00004.dcm")
-#access the object pixel_array from within img1,img2
+#access the object pixel_array from within img1,img2, img3, img4
 img1Array = img1.pixel_array
 img2Array = img2.pixel_array
 img3Array = img3.pixel_array
@@ -66,7 +72,12 @@ ax1.imshow(img1Array)
 plt.show()
 """
 """
-
+Below is the interface, we have selected our ROI and so have commented this
+out. If you wish to choose your own ROi you must uncomment the interface (line 80 and 201).
+Then comment out indices in line 211 and hard code your chosen roi in, or opt 
+to choose your roi every time you run the script.
+"""
+"""
 ####---------------------INTERFACE-----------------------------------
 # Create a new figure
 fig2 = plt.figure(2)
@@ -244,7 +255,7 @@ fig4 = plt.figure(4)
 
 ax = fig4.add_subplot(1,1,1)
 ax.title.set_text("Mean intensity over the 4 images")
-ax.set_xlabel("Image")
+ax.set_xlabel("Time")
 ax.set_ylabel("Mean intesnsity")
 
 plt.plot(x, meanIntensityList, label = "Mean intensity")
