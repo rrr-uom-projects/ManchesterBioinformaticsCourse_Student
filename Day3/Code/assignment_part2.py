@@ -81,7 +81,8 @@ XVII:
 Another function with the required argument 'event' was created, which assigned a specific function to a key press.
 The following code works as follows, if the up key is pressed, whichKey variable will store this, and if whichKey is indeed up,
 the floating image will be translated ([-1, 0] ,0). Each direction, including rotations in both directions were assigned a key.
-If an unregistered key is pressed, there is no output. This eventhandler function is called by fig.canvas.mp1_connect. 
+If an unregistered key is pressed, there is no output. This eventhandler function is called by fig.canvas.mp1_connect. print(whichKey) tells the user
+what key is being pressed. 
 XVIII:
 The shifts and rotations matched what was found by trial and error.
 """
