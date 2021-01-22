@@ -10,7 +10,7 @@ in the image.
 #Import the required libraries.
 import numpy as np #this library deals with the image as an array of numbers
 import matplotlib.pyplot as plt #this is used to plot the figures
-from skimage import io #this is used for image processing
+from skimage import io #io allows reading and writing of images in various formats
 
 
 #Load the image - by default this loads a 3 channel image which is why we are not using it.
