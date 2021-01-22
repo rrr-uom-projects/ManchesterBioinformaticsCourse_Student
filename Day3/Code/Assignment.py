@@ -30,12 +30,12 @@ plt.show()
 print(np.min(data), np.max(data)) # min = 0, max = 255
 
 def CTwindow(window, level):
-    vmin_value = level-(window/2) 
-    vmax_value = level+(window/2)
-    plt.imshow(data, cmap="Greys_r", vmin=vmin_value, vmax=vmax_value)
+    vmin_value = level-(window/2) # get minimum value by taking away half the window from the level
+    vmax_value = level+(window/2) # get maximum value by adding half the window to the level
+    plt.imshow(data, cmap="Greys_r", vmin=vmin_value, vmax=vmax_value) # plot the pixels with intensity levels in the window
     plt.show()
     
-CTwindow(50, 25) # air
-CTwindow(40, 50) # tissue, fat
-CTwindow(25, 112) # soft tissue - kidneys, heart 
-CTwindow(50, 200) # showing bone and heart?
+CTwindow(50, 25) # This window shows air
+CTwindow(40, 50) # This window shows tissue and fat
+CTwindow(25, 112) # This window shows soft tissue (can see specificially the kidneys and the heart)
+CTwindow(50, 200) # This window shows bone
