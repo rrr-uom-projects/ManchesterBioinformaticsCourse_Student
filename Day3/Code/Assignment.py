@@ -1,5 +1,6 @@
 """
 ICT in the Clinical Environment - Image Processing in Python: Assignment
+Day 3 Part 1
 
 Thomas Scott-Adams :  9627185
 Jay Miles          : 10806682
@@ -11,8 +12,6 @@ import numpy as np
 from skimage import io
 
 read_image = np.mean(io.imread("lungs.jpg"), -1) # Opening file and averaging its array over the last channel
-
-
 
 """
 Generating a Figue which includes histogram of image pixel intensities, the original image, 
@@ -32,7 +31,6 @@ def apply_window(window, level):
 
     plt.savefig("W"+str(window)+"_L"+str(level)+".png", format = "png")   # Saving png file of figure image into local directory
     plt.show()                                                            # Display figure
-
 
 apply_window(98, 199) #Call the apply_window function
 
