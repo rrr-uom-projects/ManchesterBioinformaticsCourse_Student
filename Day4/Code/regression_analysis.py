@@ -18,14 +18,12 @@ from scipy.optimize import brute, differential_evolution
 import pydicom 
 import matplotlib.patches as patches # Import the bit of matplotlib that can draw rectangles
 
-# Copies this function from previous assignment
+# Copies the shift image function from the previous assignment
 def shiftimage(image,coordinate_list):
     Vertical = coordinate_list[0] #takes the vertical co-ordinate value from the input list
     Horizontal = coordinate_list[1] #takes the horizontl co-ordinate value from the input list
-    #Rotational = coordinate_list[2] #takes the rotational co-ordinate from the list
     shifted_image = interpolation.shift(image, (Vertical, Horizontal), mode="nearest") #shifts the image on the x,y as per the input co-ordinates
-    #shifted_image = ndimage.rotate(xy_shift, Rotational, reshape=False)#rotates as per the input co-ordinates, reshape stops it squashing the image
-    return shifted_image #Changes the lungs_image_3 variable as per the above changes
+    return shifted_image #returns the shifted image as per the above changes
 
 registrations = np.load("registrations.npy")
 
@@ -35,16 +33,16 @@ patientImage2 = pydicom.read_file("IMG-0004-00002.dcm")
 patientImage3 = pydicom.read_file("IMG-0004-00003.dcm")
 patientImage4 = pydicom.read_file("IMG-0004-00004.dcm")
 
-#get the pixel data from the DICOM files as a numpy array using img1_array = img1_dcm.pixel_array
+#get the pixel data from the DICOM files as a numpy array using "img1_array = patientImage.pixel_array" format
 img1_array = patientImage.pixel_array 
 img2_array = patientImage2.pixel_array
 img3_array = patientImage3.pixel_array 
 img4_array = patientImage4.pixel_array
 
-#Arrays for all images into list as per before
+#Arrays for all images into a list as per before
 floating_list = [img1_array,img2_array,img3_array,img4_array]
 
-#Shift images calling the shift image function and putting those arrays into a list
+#Shift images calling the shift image function and registrations.py and putting those arrays into a list
 shifted_images = []
 for i in range(len(floating_list)):
     shifted = shiftimage(floating_list[i], registrations[i])
@@ -52,16 +50,16 @@ for i in range(len(floating_list)):
 print(shifted_images)
 
 #Plots all the shifted images side by side
-fig = plt.figure() #set up a figure space, I had to take this out the function to be able to call it outside of the function
-ax1 = fig.add_subplot(221) #add subplots for each thing - images and histogram
+fig = plt.figure() #set up a figure space 
+ax1 = fig.add_subplot(221) #add subplots for each image 
 ax2 = fig.add_subplot(222) 
 ax3 = fig.add_subplot(223) 
 ax4 = fig.add_subplot(224) 
-ax1.imshow(shifted_images[0], cmap="Greens_r")
+ax1.imshow(shifted_images[0], cmap="Greens_r") #Displays each image using a green colour map
 ax2.imshow(shifted_images[1], cmap="Greens_r")
 ax3.imshow(shifted_images[2], cmap="Greens_r")
 ax4.imshow(shifted_images[3], cmap="Greens_r")  
-#plt.show() #Shows 4 by 4 grid of the 4 images
+plt.show() #Shows 4 by 4 grid of the 4 images
 
 # Create a new figure
 fig2 = plt.figure(2)
@@ -177,9 +175,40 @@ cid4 = fig2.canvas.mpl_connect('key_press_event', keyboardInterface)
 
 plt.show()
 
-indices = [int(rect.get_y()), int(rect.get_y() + rect.get_height()), int(rect.get_x()), int(rect.get_x() + rect.get_width())]
+indices = [int(rect.get_y()), int(rect.get_y() + rect.get_height()), int(rect.get_x()), int(rect.get_x() + rect.get_width())] #Returns the indices of the interactive rectangle for cropping co-oridnates
 print(indices)
 
-roi1 = img1_array[indices[0]:indices[1], indices[2]:indices[3]]
-print(roi1)
+roi1 = shifted_images[0][indices[0]:indices[1], indices[2]:indices[3]] #Crops each image as deisgnated in the rectangle co-ordinates for comparison
+roi2 = shifted_images[1][indices[0]:indices[1], indices[2]:indices[3]]
+roi3 = shifted_images[2][indices[0]:indices[1], indices[2]:indices[3]]
+roi4 = shifted_images[3][indices[0]:indices[1], indices[2]:indices[3]]
 
+fig3 = plt.figure() #set up a figure space 
+ax1_1 = fig3.add_subplot(221) #add subplots for each thing, careful to use different axis variables to circumvent terrible error
+ax2_2 = fig3.add_subplot(222) 
+ax3_3 = fig3.add_subplot(223) 
+ax4_4 = fig3.add_subplot(224) 
+ax1_1.imshow(roi1, cmap="Greens_r")
+ax2_2.imshow(roi2, cmap="Greens_r")
+ax3_3.imshow(roi3, cmap="Greens_r")
+ax4_4.imshow(roi4, cmap="Greens_r")  
+plt.show() #Shows 4 by 4 grid of the 4 images
+
+
+"""
+"Come up with a metric that will describe the waythe tumour is disappearinginside this ROI. 
+This can be as simple or as complicated as you like. Evaluate your metric on the four images and plot it."
+
+If we had time we would likely use a simple metric such as taking the mean pixel intensity of the ROI in each instance and seeing
+if that decreases over the time interval
+
+ "Make sure this plot:-Has labelled axes-Has a legendSave this plot as a pngand add it to your repo.
+ Make some comments in your code noting what you see."
+ 
+Again time permitting we would add labels and axes to our plot using matplotlib tools.
+
+ "XXIII.If you still have time, change the ROIto somethingelse, e.g. a bit of thespine, and verify 
+ that the metric you chose does not change over time in that ROI."
+
+We could set up further variables to compare a bit of control tissue for this and possibly an background area outside of the tissue itself.
+ """
