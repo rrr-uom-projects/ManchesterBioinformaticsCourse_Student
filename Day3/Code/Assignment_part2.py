@@ -39,33 +39,20 @@ lungs2 = interpolation.shift(lungs2, (1, 2), mode="nearest")#Shift 2nd image rea
 floating.set_data(lungs2) #Update the shifted position of 2nd image in the variable floating
 plt.show()
 
-#You can change the position of the second image by inputting different x and y values into interpolation.shift function. 
-#Its not very interactive, but hey, its a start.
 
-####Attempts at shift image function - not working
-"""
+#Define a function to perform the above task
 def shiftImage(shifts):
-    global lungs2 #what does global do?
-    interpolation.shift(lungs2, shifts, mode="nearest")
-    floating.set_data(lungs2)
-    fig.canvas.draw() #what does this function do?
-    return
-
-shiftImage((-70, 250))
-"""
-####Attempt 2
-
-def shiftImage(shifts):
-    global lungs2 #what does global do?
+    global lungs2 #Global allows the function to change the values of lung2 outside the function, as well as inside
     fig = plt.figure()
     ax = fig.add_subplot(111) #Create a 1x1 grid of subplots, with ax specifying position 1
     ax.imshow(lungs1, cmap="Purples_r") #Plonks 1st image in space designated by ax
     floating = ax.imshow(lungs2, alpha=0.5, cmap="Greens_r")#Specify a variable which plonks 2nd image in space designated by ax
     lungs2 = interpolation.shift(lungs2, shifts, mode="nearest")#Shift 2nd image realtive on its own axes. 2nd argument (change in y, change in x)
     floating.set_data(lungs2)
-    fig.canvas.draw() #what does this function do?
+    fig.canvas.draw()
     return
 
+#Tries out the function
 shiftImage((10, 20))
 
 """
