@@ -62,9 +62,11 @@ plt.show()
 #Save this image as a png
 fig4.savefig("compound_register.png") #matlibplot save function
 
-
-
-
-
 print('Done')
 
+"""
+The next part of the task was to measure the tumour size by overlaying it with a red box.
+This required linking the figure with another segment of code to make it interactive and allow the red box to be manipulated by the mouse and key presses.
+The pixel intensity inside the red box could be used as a metric for tumour size and change in area could be plotted using functions in the matplotlib module.
+
+"""
