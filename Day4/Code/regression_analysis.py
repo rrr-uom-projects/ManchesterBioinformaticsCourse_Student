@@ -176,7 +176,7 @@ cid4 = fig2.canvas.mpl_connect('key_press_event', keyboardInterface)
 plt.show()
 
 indices = [int(rect.get_y()), int(rect.get_y() + rect.get_height()), int(rect.get_x()), int(rect.get_x() + rect.get_width())] #Returns the indices of the interactive rectangle for cropping co-oridnates
-print(indices)
+#print(indices)
 
 roi1 = shifted_images[0][indices[0]:indices[1], indices[2]:indices[3]] #Crops each image as deisgnated in the rectangle co-ordinates for comparison
 roi2 = shifted_images[1][indices[0]:indices[1], indices[2]:indices[3]]
@@ -194,15 +194,14 @@ ax3_3.imshow(roi3, cmap="Greens_r")
 ax4_4.imshow(roi4, cmap="Greens_r")  
 plt.show() #Shows 4 by 4 grid of the 4 images
 
+#Work out overall pixel intensity means for each ROI, logic being as the tumour shrinks so should the intensity
+#Could make this more robust by incoporating pixel range and standard errors.
+
+Tumour_regression = [np.mean(roi1),np.mean(roi2),np.mean(roi3),np.mean(roi4)]
+print(Tumour_regression) #This roughly shows a regression: [52.902255639097746, 47.07017543859649, 42.16791979949875, 30.789473684210527]
 
 """
-"Come up with a metric that will describe the waythe tumour is disappearinginside this ROI. 
-This can be as simple or as complicated as you like. Evaluate your metric on the four images and plot it."
-
-If we had time we would likely use a simple metric such as taking the mean pixel intensity of the ROI in each instance and seeing
-if that decreases over the time interval
-
- "Make sure this plot:-Has labelled axes-Has a legendSave this plot as a pngand add it to your repo.
+"Make sure this plot:-Has labelled axes-Has a legendSave this plot as a pngand add it to your repo.
  Make some comments in your code noting what you see."
  
 Again time permitting we would add labels and axes to our plot using matplotlib tools.
