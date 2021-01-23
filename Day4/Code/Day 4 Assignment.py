@@ -197,10 +197,13 @@ registrations #returns [array([  2.99566717, -25.00354501]), array([-2.99344658,
 #Make a new loop of shifted images by looping over floating list and using shiftImage() function
 shiftedimages = []
 for floating in floating_list:
-    for registration in floating:
+    for registration in registrations:
         shifted_image = shiftImage(registration, floating)
-        ax.imshow(shifted_image, cmap="Greys_r")
-        plt.show()
+        shiftedimages.append(shifted_image) #not working for some reason
+        
+#To display a specific shifted image in shiftedimages list        
+ax.imshow(shiftedimages[0], cmap="Greys_r") #change 0 to 1 or 2 to look at the other shifted images
+plt.show()
 
 #Create a numpy array from the list of registering shifts and save as numpy file
 registrations_arr = np.array(registrations)
