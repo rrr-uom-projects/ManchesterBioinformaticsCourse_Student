@@ -67,26 +67,57 @@ plt.show()
 fig2 = plt.figure()
 ax = fig2.add_subplot(111)
 plt.title("Overlaid images 1 & 2")
-ax.imshow(image1_array, cmap = "Green_r")
+ax.imshow(image1_array, cmap = "Greens_r")
 #ax.imshow(interpolation.shift(image2_array, (0, -25)), alpha = 0.5, cmap = "Purple_r")
-ax.imshow(image2_array, alpha = 0.5, cmap = "Purple_r")
+ax.imshow(image2_array, alpha = 0.5, cmap = "Purples_r")
 plt.show()
 
 #Overlay of image 1 and 3
 
 #Modified previous shiftImage function
 def shiftImage(shifts, image):
-    shifted_image = plt.imshow(interpolation.shift(image1_array, shifts), cmap = "Greys_r")
+    shifted_image = interpolation.shift(image, shifts)
+    #fig3 = plt.figure()
+    #ax = fig3.add_subplot(111)
+    #plt.title("Overlaid images 1 & 2")
+    #ax.imshow(image1_array, cmap = "Greens_r")
+    #ax.imshow(shifted_image, cmap = "Purples_r", alpha = 0.5)
+    plt.imshow(shifted_image, cmap="Greys_r")
     return shifted_image
     #plt.show()
 
 #shift required to register the images: (0, -25) = no movement in y axis and 25 movements left in the x axis.
-shiftImage([10, 20], image1_array)
+shiftImage([0, -25], image1_array)
 plt.show()
 
-#Define a cost function
+#Define a cost function (mean squared error)- measures performance of registration of images (how well/poorly registered the images are after applying our shift)
+#Cost function quantifies the error between predicted and expected values and presents it in the form of a single real number
+#We want the cost function to be minimized- in this case the returned value is called COST (or loss/error). Goal is to find the values of model parameters for which cost function returns as small number as possible
+#Transformation that gives smallest value of cost function is considered to be the one that gives the best alignment
 def costFunction(image1, image2):
-    return np.mean((image1 - image2))
+    return np.mean((image1 - image2)**2) #this calculates the mean squared error (average of the squared difference between the two input arrays)
+#The squaring means that larger mistakes result in more error than smaller mistakes, meaning that the model is punished for making larger mistakes.
 
 #To check that this cost function works
-costFunction(image1_array, image2_array)
+costFunction(image1_array, image2_array) #returns 0
+costFunction(image1_array, image2_array) #returns 684.6462631225586 - positive and large number
+
+#Define an optimizer
+def registerImages(shift, fixed, floating):
+    shifted_image = shiftImage(shifts, floating)
+    return np.mean((fixed - shifted_image)**2)
+
+registerImages([10, -25], image1_array, image2_array)
+    
+#To automatically register images:
+registering_shift = brute(registerImages, ((-100, 100), (-100, 100)), args=(image1_array, image2_array))
+#returns shift that optimally registers images and minimizes cost function
+
+#Apply floating to registering_shift using shiftImage function, then plot the result over fixed using transparency
+shiftImage(shift returned from registering shift, image) #does this register the two images?
+
+from scipy.optimize import brute
+help(brute)    
+help(np.mean)
+    
+    
