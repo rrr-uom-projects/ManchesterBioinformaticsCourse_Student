@@ -122,21 +122,31 @@ shifted_image2 = shiftImage(registering_shift, image2_array)
 fig4 = plt.figure()
 ax = fig4.add_subplot(111)
 ax.imshow(image1_array, cmap = "Greens_r")
-ax.imshow(shifted_image2, alpha = 0.5, cmap = "Greens_r")
+ax.imshow(shifted_image2, alpha = 0.5, cmap = "Purples_r")
 plt.show()
 
 #Trying out different options/parameters for the brute optimizer to see how it affects registration
 help(scipy.optimize.brute)
 
 #1: Changing range (xmin, xmax; ymin, ymax) over which optimizer looks for a solution (to apply shift that minimizes cost function)
-registering_shift = brute(registerImages, ((-50,50), (-50,50)), args=(image1_array, image2_array))
-#returns array([  3.00393757, -25.00177484])
+registering_shift2 = brute(registerImages, ((-50,50), (-50,50)), args=(image1_array, image2_array))
+registering_shift2 #returns array([  3.00393757, -25.00177484])
+
+#Plot this shift using transparency
+shifted_image3 = shiftImage(registering_shift2, image2_array)
+fig5 = plt.figure()
+ax= fig5.add_subplot(111)
+ax.imshow(image1_array, cmap = "Greens_r")
+ax.imshow(shifted_image3, alpha = 0.5, cmap = "Purples_r")
+plt.show()
+#How does it affect quality of registration?? Quality still good- need to change coordinates???
+
 
 #2: Changing the number of evaluation points
 registering_shift = brute()
 
 #3: Changing cost function?  (to return a different measure of cost) 
-  #a) using normalized correlation
+  #a) using normalized correlation as a cost function- measures correlation between two images to see how similar they are. Has minimum of -1 (v dissimilar) and max of 
 def correlation_coefficient(image1, image2):
     product = np.mean((image1 - image1.mean()) * (image2 - image2.mean()))
     stds = image1.std() * image2.std()
@@ -146,15 +156,21 @@ def correlation_coefficient(image1, image2):
         product /= stds
         return product
     
+correlation_coefficient(image1_array, image1_array) #returns 1.0000000000000002- they are identical
+correlation_coefficient(image1_array, image2_array) #returns 0.6234105920017828- partially dissimilar (in coordinates)
+ 
     #b) define new registerImage function which returns correlation coefficient instead of least squares
 def registerImages2(shift, fixed, floating):
     shifted_image = shiftImage(shift, floating)
     return correlation_coefficient(fixed, shifted_image)
 
-registering_shift = brute(registerImages, ((-100, 100), (-100,100)), args = (image1_array, image2_array)
-    
+registerImages2([0,-25], image1_array, image2_array) #returns 0.9493672548087644
+
+registering_shift3 = brute(registerImages2, ((-100, 100), (-100,100)), args = (image1_array, image2_array)
+#this affects registration by...
     
 #Try different optimisers: eg: differential_evolution
+registering_shift = differential_evolution(registerImages, ((-100, 100), (-100,100)), args = (image1_array, image2_array))
 
 #Now register all the images
 floating_list = [image2_array, image3_array, image4_array]
