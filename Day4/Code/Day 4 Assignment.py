@@ -18,7 +18,7 @@ from skimage import io
 import io 
 import matplotlib.image as mpimg 
 import pydicom 
-import scipy.optimize
+from scipy.optimize import brute
 
 #Set working directory
 os.chdir("C:/Users/jaden/bioinformatics-course/code/ManchesterBioinformaticsCourse_Student/Day4/Code")
@@ -112,13 +112,51 @@ registerImages([0, -25], image1_array, image2_array) #returns cost value of 92.0
 #To automatically register images:
 registering_shift = brute(registerImages, ((-100, 100), (-100, 100)), args=(image1_array, image2_array))
 #returns shift that optimally registers images and minimizes cost function
-registering_shift #this returns array([  2.99566717, -25.00354501])
+registering_shift #this returns array([  2.99566717, -25.00354501]) #shift that the optimizer(brute) applies to minimize the cost function
 
-#Apply floating to registering_shift using shiftImage function, then plot the result over fixed using transparency
-shiftImage(registering_shift, image) #does this register the two images?
+#Apply registering_shift to floating using shiftImage function, then plot the result over fixed using transparency
+shiftImage(registering_shift, image2_array) #does this register the two images? Yes
 
-from scipy.optimize import brute
-help(brute)    
-help(np.mean)
+#Plot newly shifted floating image on top of fixed, using transparency
+shifted_image2 = shiftImage(registering_shift, image2_array)
+fig4 = plt.figure()
+ax = fig4.add_subplot(111)
+ax.imshow(image1_array, cmap = "Greens_r")
+ax.imshow(shifted_image2, alpha = 0.5, cmap = "Greens_r")
+plt.show()
+
+#Trying out different options/parameters for the brute optimizer to see how it affects registration
+help(scipy.optimize.brute)
+
+#1: Changing range (xmin, xmax; ymin, ymax) over which optimizer looks for a solution (to apply shift that minimizes cost function)
+registering_shift = brute(registerImages, ((-50,50), (-50,50)), args=(image1_array, image2_array))
+#returns array([  3.00393757, -25.00177484])
+
+#2: Changing the number of evaluation points
+registering_shift = brute()
+
+#3: Changing cost function?  (to return a different measure of cost) 
+  #a) using normalized correlation
+def correlation_coefficient(image1, image2):
+    product = np.mean((image1 - image1.mean()) * (image2 - image2.mean()))
+    stds = image1.std() * image2.std()
+    if stds == 0:
+        return 0
+    else:
+        product /= stds
+        return product
     
+    #b) define new registerImage function which returns correlation coefficient instead of least squares
+def registerImages2(shift, fixed, floating):
+    shifted_image = shiftImage(shift, floating)
+    return correlation_coefficient(fixed, shifted_image)
+
+registering_shift = brute(registerImages, ((-100, 100), (-100,100)), args = (image1_array, image2_array)
+    
+    
+#Try different optimisers: eg: differential_evolution
+
+#Now register all the images
+floating_list = [image2_array, image3_array, image4_array]
+
     
