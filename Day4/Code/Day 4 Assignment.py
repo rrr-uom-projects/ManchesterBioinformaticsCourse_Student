@@ -99,22 +99,23 @@ def costFunction(image1, image2):
 #The squaring means that larger mistakes result in more error than smaller mistakes, meaning that the model is punished for making larger mistakes.
 
 #To check that this cost function works
-costFunction(image1_array, image2_array) #returns 0
+costFunction(image1_array, image1_array) #returns 0
 costFunction(image1_array, image2_array) #returns 684.6462631225586 - positive and large number
 
 #Define an optimizer
 def registerImages(shift, fixed, floating):
-    shifted_image = shiftImage(shifts, floating)
+    shifted_image = shiftImage(shift, floating)
     return np.mean((fixed - shifted_image)**2)
 
-registerImages([10, -25], image1_array, image2_array)
+registerImages([0, -25], image1_array, image2_array) #returns cost value of 92.05199432373047- this is high
     
 #To automatically register images:
 registering_shift = brute(registerImages, ((-100, 100), (-100, 100)), args=(image1_array, image2_array))
 #returns shift that optimally registers images and minimizes cost function
+registering_shift #this returns array([  2.99566717, -25.00354501])
 
 #Apply floating to registering_shift using shiftImage function, then plot the result over fixed using transparency
-shiftImage(shift returned from registering shift, image) #does this register the two images?
+shiftImage(registering_shift, image) #does this register the two images?
 
 from scipy.optimize import brute
 help(brute)    
