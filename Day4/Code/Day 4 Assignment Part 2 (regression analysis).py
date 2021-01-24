@@ -208,5 +208,17 @@ roi = image1_array[indices[0]:indices[1], indices[2]:indices[3]]
 plt.imshow(roi, cmap="Greys_r")
 plt.show()
 
+##NB: using same ROI for each of the images for consistency
+roi2 = shifted_image_2[indices[0]:indices[1], indices[2]:indices[3]]
+plt.imshow(roi2, cmap = "Greys_r")
+plt.show()
+
+roi3 = shifted_image_3[indices[0]:indices[1], indices[2]:indices[3]]
+plt.imshow(roi3, cmap="Greys_r")
+plt.show()
+
+roi4 = shifted_image_4[indices[0]:indices[1], indices[2]:indices[3]]
+plt.imshow(roi4, cmap="Greys_r")
+plt.show()
 
 import pydicom
