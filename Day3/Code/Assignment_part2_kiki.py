@@ -58,5 +58,9 @@ ax.imshow(mean_fixed_image, cmap="Greys_r")
 # we set alpha=0.5 for partial transparency. 
 # increase or decrease alpha value to make front image less or more see through, respectively
 floating = ax.imshow(mean_moving_image, alpha=0.5, cmap="Greys_r")
-
 plt.show()
+
+help(plt.imshow)
+help(interpolation.shift)
+plt.show()
+
