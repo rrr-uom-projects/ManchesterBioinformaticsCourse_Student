@@ -29,7 +29,8 @@ from scipy.optimize import brute
 import inspect
 import os
 import pydicom
- 
+# Import the bit of matplotlib that can draw rectangles
+import matplotlib.patches as patches 
 # Now we copy the shiftImages function
  
 def shiftImage(shifts, image):
@@ -86,19 +87,19 @@ create showing only the first image. Then, we will use the interface to put a re
 tumour. The red box will be used to get the indices in the pixel data array that define that
 region of interest. From that we will extract the ROI and analyse the numbers within it
 """
- 
+'''
 # First, let's decided the order of the images
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
 # Now, we write some Title
 fig.suptitle('Four images side-by-side ')
 # We specify the images that they were previously load
-ax1.imshow(img1_array)
-ax2.imshow(shifted_images[0])
-ax3.imshow(shifted_images[1])
-ax4.imshow(shifted_images[2])
+ax1.imshow(img1_array, cmap="Greys_r")
+ax2.imshow(shifted_images[0], cmap="Greys_r")
+ax3.imshow(shifted_images[1], cmap="Greys_r")
+ax4.imshow(shifted_images[2], cmap="Greys_r")
 # And plot everything
 plt.show()
- 
+'''
 
 # Now, we are going to use the code from interface.py
 # We have added some modification to be able to run de code
@@ -240,6 +241,9 @@ XIX. Now everything is linked up, try visualising the first image. """
  
 # We think we have done this already in activity number XVI. We have been able to visualise the first image and locate with the mouse the red square on the tumor.
  
-
-
+"""
+FOR XXII and XXIII refer to scripts called:
+Assignment_Day4_Part2B.py
+Assignment_Day4_Part2C.py
+"""
 
