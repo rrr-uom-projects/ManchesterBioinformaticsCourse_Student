@@ -28,6 +28,7 @@ from skimage.io import imread
 from scipy.ndimage import interpolation, rotate
 import inspect
 import os
+import matplotlib.patches as patches
 # path of the executing script 
 actual_path = os.path.dirname(os.path.abspath(inspect.stack()[0][1]))
 
@@ -38,7 +39,7 @@ X. Load the images “lings.jpg” and “lungs2.jpg”
 #name of image
 img_name1 = '/lungs.jpg'
 img_name2 = '/lungs2.jpg'
-img_name3 = '/lungs2.jpg'
+img_name3 = '/lungs3.jpg'
 #path to the image
 img_path1 = actual_path + img_name1
 img_path2 = actual_path + img_name2
@@ -51,7 +52,7 @@ lungs3 = io.imread(img_path3, as_gray=True)
 """
 XI. Display the images
 """
- 
+
 fig = plt.figure()
 
 # SOME EXPLANATION HERE IS NEEDED
@@ -68,9 +69,9 @@ plt.show()
 XII. Make a plot where you can see both images on the same axes using transparency.
 """
 # To do this, we just need to add lungs2 over lungs1. With alpha, we blend the value, between 0 as transparent and 1 as opaque.  
- 
+
 plt.imshow(lungs1)
-plt.imshow(lungs2, alpha=0.25)
+plt.imshow(lungs2, alpha=0.25) # Alhpa dneotes level of tranparancy 
 plt.show()
 
 
@@ -88,14 +89,18 @@ def shiftImage(shifts):
 #Call the function to display shifted image
 #the values that perfectly overlay the images are [-15, -40]
 #shiftImage([-15,-40])
-shiftImage([10,20])
+#shiftImage([10,20])
 
 """
 XIV. Evaluate your function by calling it. What does shiftImage([10,20]) do? 
+
+this function shifts image 10 pixels to the bottom and 20 pixels to the right
 """
  
 """
-XV. What are the shifts needed to align the images? Make a note of them in some comments
+XV. What are the shifts needed to align the images? 
+Ansewr: [-15, -40]
+
 """
  
 """
@@ -120,3 +125,66 @@ plt.show()
 
 
 
+
+"""
+XVII  Event Handling 
+"""
+def eventHandler(event):
+    up = 0
+    down = 0
+    right = 0
+    left = 0
+    whichKey = event.key
+    global lungs2
+    if whichKey == "up":
+        up = 1
+        #shiftImage([up,0])
+        lungs2 = interpolation.shift(lungs2, up, 0, mode="nearest")
+      
+    elif whichKey == "down":
+        down = -1
+        #shiftImage([down,0])
+        lungs2 = interpolation.shift(lungs2, down, 0, mode="nearest")
+    elif whichKey == "right":
+        right = 1
+        #shiftImage([0,right])
+        lungs2 = interpolation.shift(lungs2, 0, right, mode="nearest")
+        
+    elif whichKey == "left":
+        left = -1
+        #shiftImage([0,left])
+        lungs2 = interpolation.shift(lungs2, 0, left, mode="nearest")
+    
+
+
+"""WORKING PROGRESS
+
+I get this error: elif output.shape != shape:  AttributeError: 'int' object has no attribute 'shape'
+Not sure how to fix this.
+But getting close
+
+"""
+
+img = np.zeros([1000,1000,3],dtype=np.uint8)
+img.fill(255)
+fig, ax = plt.subplots(1,1)
+xlim = [-1000,1000]
+ylim = [-1000,1000]
+ax.set(xlim=xlim, ylim=ylim)
+ax.set_autoscaley_on(False)
+
+
+#plt.imshow(img, cmap="Greys_r")
+plt.imshow(lungs1, cmap="Greys_r")
+
+fig.canvas.mpl_connect('key_press_event', eventHandler) #For some reason not shiftng image
+plt.imshow(lungs2, alpha=0.15, cmap="Greys_r")
+plt.show()
+
+"""
+XVIII
+
+Was not able to complete this due to lack of time and not getting the previouse function to work. 
+
+However should be easy to implement using the rotate function by adjusting the angle on a key event
+"""
