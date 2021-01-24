@@ -60,7 +60,7 @@ plt.show()
 print(np.min(lung1), np.max(lung1))
 # min = 0; max = 255 for lung1
 
-
+ 
 
 ###########################################################
 #Q5. Write a function that displays the CT image with different window levels. 
