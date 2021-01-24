@@ -221,4 +221,58 @@ roi4 = shifted_image_4[indices[0]:indices[1], indices[2]:indices[3]]
 plt.imshow(roi4, cmap="Greys_r")
 plt.show()
 
-import pydicom
+#Plot all ROIs on a subplot
+fig = plt.figure()
+#plt.title("Tumor region")
+ax1 = fig.add_subplot(221)
+ax1.set_title("Image 1")
+ax2 = fig.add_subplot(222)
+ax2.set_title("Image 2")
+ax3 = fig.add_subplot(223)
+ax3.set_title("Image 3")
+ax4 = fig.add_subplot(224)
+ax4.set_title("Image 4")
+fig.suptitle("Tumor region in all four images")
+#fig.subplots_adjust(wspace=0.5, hspace=0.3,left=0.125,right=0.9,top=0.9,bottom=0.1)
+ax1.imshow(roi, cmap="Greys_r")
+ax2.imshow(roi2, cmap="Greys_r")
+ax3.imshow(roi3, cmap="Greys_r")
+ax4.imshow(roi4, cmap="Greys_r")
+#plt.savefig("ROIs.png")
+
+#Come up with a metric that will describe the way that the tumor is regressing. 
+#This can be as simple or as complex as you like
+#Evaluate this metric on the four images and plot it
+
+#Use mean squares? Mean squared pixel wise difference in intensity between image A and B.
+np.mean((roi-roi2)**2) #65.84285714285714
+np.mean((roi-roi3)**2) #175.48095238095237
+np.mean((roi-roi4)**2) #639.6714285714286
+#This shows that there is a increasing difference in the intensity of pixels between ROI in image1 compared to ROIs in image2, 3 and 4, respectively
+
+a = np.mean((roi-roi)**2)
+b = np.mean((roi-roi2)**2) #65.84285714285714
+c = np.mean((roi-roi3)**2) #175.48095238095237
+d = np.mean((roi-roi4)**2)
+
+y= [a, b, c, d]
+x= ["Image1", "Image2", "Image3", "Image4"]
+
+fig = plt.figure()
+plt.scatter(x,y)
+plt.plot(x, y)
+plt.xlabel("Image")
+plt.ylabel("Mean squares (compared to image 1)")
+plt.title("Evaluation metric for tumor regression (mean squares cost function)")
+#plt.legend() #not sure what legend?
+
+plt.show()
+
+#fig = plt.figure()
+#ax = fig.add_subplot(111)
+#ax.set(title = "Evaluation metric for tumor regression (mean squares cost function)",
+#       ylabel = "Mean squares (compared to image 1)",
+#       xlabel = "Image")
+#ax.legend(loc="upper left")
+#lines = ax.plot(x, y)
+#plt.scatter(x,y)
