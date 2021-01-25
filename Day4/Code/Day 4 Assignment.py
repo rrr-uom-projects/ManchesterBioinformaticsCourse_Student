@@ -1,7 +1,9 @@
-# Day 4 Assignment
+"""
+# Day 4 Assignment Part 1
 ## Name: Jadene and Long-Ki
 ## Date: 21/01/21
 ## Title: Image processing in Python
+"""
 
 ## PART 1 ##
 
