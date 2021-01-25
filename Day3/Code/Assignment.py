@@ -97,6 +97,8 @@ diff_windows(120,60)
 '''
 we have 4 peaks in the histogram thus there are 4 regions where the pixels are abundant
 this may imply that majorities of the different organs/regions in our patients fall with 4 differnt densities
+    #Parts of the histogram with higher peaks refer to those less dense regions such as soft tissue (as there is less X-ray attenuation). 
+    #Parts of histogram with lower peaks refer to those increased density regions such as bone as there is higher X-ray attenuation
 we thus can change the levels and windows to highlight just those areas with different intensities
 '''
 
@@ -189,87 +191,4 @@ plt.show()
     #Parts of the histogram with higher peaks refer to those less dense regions such as soft tissue (as there is less X-ray attenuation). 
     #Parts of histogram with lower peaks refer to those increased density regions such as bone as there is higher X-ray attenuation
 
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 20 21:17:41 2021
 
-@author: jaden
-"""
-### Name: Jadene Lewis
-### Date: 20/01/21
-### Title: Image Processing in Python
-
-# Part 2 #
-import numpy as np
-import skimage.io
-import scipy.signal
-import matplotlib.pyplot as plt
-from scipy.ndimage import interpolation, rotate
-
-# Load and display images 'lungs.jpg' and 'lung2.jpg'
-lungs2_image = skimage.io.imread("lungs.jpg", as_gray=True)
-plt.imshow(lungs2_image)
-
-lungs_image = skimage.io.imread("lungs.jpg", as_gray=True)
-plt.imshow(lungs_image)
-
-# Make a plot where you can see both images on the same plot using transparency
-floating_image = skimage.io.imread("lungs2.jpg", as_gray=True) #moving image
-background_image = skimage.io.imread("lungs.jpg", as_gray=True) #fixed image
-
-fig = plt.figure()
-plt.title('Lung 1 and Lung 2 overlayed')
-ax = fig.add_subplot(111)
-background = ax.imshow(background_image, cmap="Greys_r") #puts 'lungs.jpg' in background
-floating = ax.imshow(floating_image, alpha=0.5, cmap="Greys_r") #puts 'lungs2.jpg' in front and alpha=0.5 makes for partial transparency. increase or decrease alpha value to make front image less or more see through, respectively
-#plt.imshow(interpolation.shift(floating_image, (10, 20, 0))) #Because RGB image so has three dimensions and thus shifting parameter requires 3 values
-plt.show()
-
-help(plt.imshow)
-help(interpolation.shift)
-plt.show()
-#M = np.float32([[1, 0, 50],
-#                [0, 1, 50])
-##
-## apply a perspective transformation to the image
-#translated_img = cv2.warpPerspective(img, M, (cols, rows))
-## disable x & y axis
-#plt.axis('off')
-## show the resulting image
-#plt.imshow(translated_img)
-#plt.show()
-
-
-##Write a function that would shift floating image
-def shiftImage(x, y):
-    global floating_image
-    #global background
-    #fig = plt.figure()
-    #ax = fig.add_subplot(111)
-    #ax.imshow(background)
-    #plt.imshow(background_image,)
-    #fig, ax = plt.subplots()
-    floating_image_shift = interpolation.shift(floating_image, (y, x), mode = "nearest")
-    floating.set_data(floating_image_shift)
-    fig.canvas.draw() #draws update to canvas
-    #return plt.imshow(floating_image)
-    #plt.show()
-    #image not showing?
-    #return floating_image
-    #return plt.show(floating_image)
-
-shiftImage(20, 10) #what does this do?
-shiftImage(50, 40)
-
-#Modify previous function to include rotation
-
-#Shifting image using keyboard presses
-def shiftImage(x, y, r):
-    global floating_image
-    floating_image_shift = interpolation.shift(floating_image, (y, x), mode = "nearest")
-    floating_image_rotated = scipy.ndimage.rotate(floating_image, r, reshape=True)
-    floating.set_data(floating_image_shift, floating_image_rotated)
-    fig.canvas.draw()
-
-import pydicom #not working
-help(scipy.ndimage.rotate)
