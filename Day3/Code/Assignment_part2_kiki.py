@@ -6,7 +6,7 @@
 Title = Image processing in Python: assignment 
 Date = 1/20/2021 (Day 3)
 Names = Jadene Lewis & Long-Ki Chan
-Submission Date = 
+Submission deadline = 25/1/2021
 """
 
 ##### Part 2  ######
