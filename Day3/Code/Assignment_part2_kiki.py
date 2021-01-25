@@ -9,7 +9,7 @@ Names = Jadene Lewis & Long-Ki Chan
 Submission Date = 
 """
 
-##### Part 1  ######
+##### Part 2  ######
 
 ###########################################################
 #Q9. Import the modules eg. matplotlib.pyplot, numpy and imread from skimage.io
