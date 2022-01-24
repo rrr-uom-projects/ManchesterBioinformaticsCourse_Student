@@ -1,4 +1,5 @@
 # Manchester Bioinformatics Course 
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/rrr-uom-projects/ManchesterBioinformaticsCourse_Student/blob/master/Index.ipynb)
 
 The materials in this repository are what you will need to complete the python lectures and assessments. 
 
