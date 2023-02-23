@@ -60,7 +60,7 @@ plt.show()
 print(np.min(lung1), np.max(lung1))
 # min = 0; max = 255 for lung1
 
-
+ 
 
 ###########################################################
 #Q5. Write a function that displays the CT image with different window levels. 
@@ -97,8 +97,6 @@ diff_windows(120,60)
 '''
 we have 4 peaks in the histogram thus there are 4 regions where the pixels are abundant
 this may imply that majorities of the different organs/regions in our patients fall with 4 differnt densities
-    #Parts of the histogram with higher peaks refer to those less dense regions such as soft tissue (as there is less X-ray attenuation). 
-    #Parts of histogram with lower peaks refer to those increased density regions such as bone as there is higher X-ray attenuation
 we thus can change the levels and windows to highlight just those areas with different intensities
 '''
 
@@ -116,79 +114,5 @@ diff_windows(10,240) # 4th peak = 245-255
 
 
 
-Comments are not optional
-"""
-### Name: Jadene Lewis
-### Date: 20/01/21
-### Title: Image processing in Python: assignment
-"""
 
-# Import libraries/modules required:
-import numpy as np
-import matplotlib.pyplot as plt
-import scipy #scipy.signal basically not compatible with Windows. Can't use for signal processing because can't import scipy.signal
-from scipy.ndimage import interpolation, rotate #not working
-import os
-import skimage.io #not working so import matplotlib.image instead
-import skimage
-from skimage import io
-import io 
-import matplotlib.image as mpimg 
-
-# Set current working directory 
-os.getcwd()
-os.chdir("C:/Users/jaden/bioinformatics-course/code/ManchesterBioinformaticsCourse_Student/Day3/Code")
-
-##Part 1
-
-#To make images bigger than default size
-plt.rcParams['figure.figsize'] = (16.0, 12.0)
-
-##Switch to appropriate directory
-os.getcwd()
-os.chdir("C:/Users/jaden/bioinformatics-course/code/ManchesterBioinformaticsCourse_Student/Day3/Code")
-os.getcwd()
-
-
-#LOAD FILE 'lungs.jpg'
-lungs_image = skimage.io.imread("lungs.jpg")
-plt.imshow(lungs_image)
-#plt.show(plt.imshow(lungs_image)) #what is the difference between plt.imshow() and plt.show()
-
-print(lungs_image)
-print(lungs_image.shape) #returns [569, 600, 3]= 569 pixels wide and 600 pixels tall, 3 color channels
-lungs_image.shape #returns an array showing how many channels, how many pixels tall and wide
-print(lungs_image.dtype) #uint8
-
-#Plot histogram of image
-data = np.mean(lungs_image,-1) 
-plt.hist(data[data >1].flatten(), bins = 254)
-plt.show()
-
-
-
-#Function that displays CT image at different window levels        
-def window_image(image, window_center, window_width):
-    img_min = window_center - window_width // 2
-    img_max = window_center + window_width // 2
-    window_image = image.copy()
-    window_image[window_image < img_min] = img_min
-    window_image[window_image > img_max] = img_max
-    
-    return io.imshow(window_image)
-
-window_image(lungs_image, 350, 700)
-    
-
-#Windowing, also known as grey-level mapping, contrast stretching, histogram modification or contrast enhancement is the process in which the CT image greyscale component of an image is manipulated via the CT numbers; doing this will change the appearance of the picture to highlight particular structures. The brightness of the image is adjusted via the window level. The contrast is adjusted via the window width.
-#Window of lungs_image
-print(np.min(lung_im), np.max(lung_im)) #0.0, 1.0
-plt.imshow(lung_im, cmap="Greys_r", vmin=0.0, vmax=1.0) #
-plt.show()
-
-##Identify which parts of the histogram relate to which parts of the image. 
-#Record info as comments in your code:
-    #Parts of the histogram with higher peaks refer to those less dense regions such as soft tissue (as there is less X-ray attenuation). 
-    #Parts of histogram with lower peaks refer to those increased density regions such as bone as there is higher X-ray attenuation
-
-
+from scipy.ndimage import interpolation, rotate
